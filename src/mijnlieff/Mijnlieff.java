@@ -32,7 +32,6 @@ public class Mijnlieff extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("mijnlieff/img/logo3.png"));
-
         primaryStage.show();
 
         if (getParameters().getRaw().size() == 3) {
