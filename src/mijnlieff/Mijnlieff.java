@@ -1,6 +1,7 @@
 package mijnlieff;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,10 +20,11 @@ public class Mijnlieff extends Application {
     public void start(Stage primaryStage) throws Exception{
 
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Mijnlieff.fxml"));
 
+        Parent root = loader.load();
 
-        Parent root = FXMLLoader.load(getClass().getResource("Mijnlieff.fxml"));
-
+        MijnlieffController controller = loader.getController();
 
         primaryStage.setTitle("Mijnlieff");
         primaryStage.setResizable(false);
@@ -33,10 +35,14 @@ public class Mijnlieff extends Application {
 
         primaryStage.show();
 
-        //controller.end();
-        WritableImage image = scene.snapshot(null);
-        File out = new File("Snapshot_complete");
-        ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", out);
+        if (getParameters().getRaw().size() == 3) {
+            controller.end();
+            WritableImage image = scene.snapshot(null);
+            File out = new File(getParameters().getRaw().get(2));
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", out);
+            Platform.exit();
+        }
+
 
         
     }

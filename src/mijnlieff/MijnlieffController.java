@@ -12,26 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+
 public class MijnlieffController {
 
-    private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
-    static {
-            typePerChar.put('o', PieceType.PULLER);
-            typePerChar.put('@', PieceType.PUSHER);
-            typePerChar.put('+', PieceType.TOREN);
-            typePerChar.put('X', PieceType.LOPER);
-    }
 
-    private static String[] zetten = new String[] {
-            "X T 0 0 @",
-            "X T 0 1 o",
-            "X T 1 0 +",
-            "X T 1 1 o",
-            "X T 2 0 @",
-            "X T 2 1 +",
-            "X T 3 0 X",
-            "X T 3 1 X"
-    };
     public Button backBut;
     public Button nextBut;
     public Button startBut;
@@ -41,6 +25,13 @@ public class MijnlieffController {
     public SidePieces blackSide;
     private Client client;
 
+    private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
+    static {
+        typePerChar.put('o', PieceType.PULLER);
+        typePerChar.put('@', PieceType.PUSHER);
+        typePerChar.put('+', PieceType.TOREN);
+        typePerChar.put('X', PieceType.LOPER);
+    }
 
 
 
@@ -56,16 +47,21 @@ public class MijnlieffController {
         whiteSide.setModels();
         whiteSide.setPieces();
         client = new Client();
+        String message = client.getNewMove();
+        while (message.contains("F")) {
+            board.addCode(message);
+            message = client.getNewMove();
+        }
+        board.addCode(message);
+
     }
 
 
     public void next() {
         int turn = board.getTurn();
 
-
-
-        String current = client.getNewMove();
-        System.out.println(current);
+        ArrayList<String> codes = board.getCodes();
+        String current = codes.get(board.getTurn());
 
         Color color = Color.BLACK;
         if (turn % 2 == 0) {
@@ -74,10 +70,7 @@ public class MijnlieffController {
 
         PieceType type = typePerChar.get(current.charAt(8));
 
-        int row = Character.getNumericValue(current.charAt(4));
-        int column = Character.getNumericValue(current.charAt(6));
-
-        board.addPiece(new Piece(color, type), row, column);
+        board.addPiece(current);
 
         if (turn % 2 == 0) {
             whiteSide.deletePieceImage(type);
@@ -85,14 +78,13 @@ public class MijnlieffController {
             blackSide.deletePieceImage(type);
         }
 
-
-
+        if (current.contains("T")) {
+            nextBut.setDisable(true);
+            endBut.setDisable(true);
+        }
 
         backBut.setDisable(false);
         startBut.setDisable(false);
-        nextBut.setDisable(board.getTurn() >= zetten.length);
-        endBut.setDisable(board.getTurn() >= zetten.length);
-
 
     }
 
@@ -119,7 +111,7 @@ public class MijnlieffController {
 
     public void end() {
 
-        while (board.getTurn() < zetten.length) {
+        while (board.getTurn() < board.getCodes().size()) {
             next();
 
         }

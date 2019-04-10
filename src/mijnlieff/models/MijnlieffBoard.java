@@ -3,18 +3,30 @@ package mijnlieff.models;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import mijnlieff.pieces.Color;
+import mijnlieff.pieces.PieceType;
 import mijnlieff.views.Field;
 import mijnlieff.pieces.Piece;
 import mijnlieff.views.MijnlieffListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MijnlieffBoard extends GridPane {
 
-    private ObservableList<Node> children;
+    private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
+    static {
+        typePerChar.put('o', PieceType.PULLER);
+        typePerChar.put('@', PieceType.PUSHER);
+        typePerChar.put('+', PieceType.TOREN);
+        typePerChar.put('X', PieceType.LOPER);
+    }
+
+
     private ArrayList<Integer> fieldsInOrder;
     private ArrayList<Piece> pieces;
     private ArrayList<Field> listeners;
+    private ArrayList<String> codes;
     private int turn;
 
     public MijnlieffBoard() {
@@ -24,12 +36,21 @@ public class MijnlieffBoard extends GridPane {
         }
         fieldsInOrder = new ArrayList<>();
         listeners = new ArrayList<>();
-        children = getChildren();
+        codes = new ArrayList<>();
+
         turn = 0;
     }
 
+    public void addCode(String code) {
+        codes.add(code);
+    }
+
+    public ArrayList<String> getCodes() {
+        return codes;
+    }
+
     public void setModels() {
-        children = getChildren();
+        ObservableList<Node> children = getChildren();
 
         for (Node node: children) {
 
@@ -45,8 +66,17 @@ public class MijnlieffBoard extends GridPane {
         listeners.add(listener);
     }
 
-    public void addPiece(Piece piece, int row, int column) {
-        pieces.set(4*row+column, piece);
+    public void addPiece(String code) {
+        Color color = Color.BLACK;
+        if (turn % 2 == 0) {
+            color = color.WHITE;
+        }
+
+        int row = Character.getNumericValue(code.charAt(4));
+        int column = Character.getNumericValue(code.charAt(6));
+
+        Piece piece = new Piece(color, typePerChar.get(code.charAt(8)));
+        pieces.set(4*row + column, piece);
 
         fieldsInOrder.add(4*row + column);
         fireInvalidationEvent();
@@ -79,6 +109,4 @@ public class MijnlieffBoard extends GridPane {
         fieldsInOrder.remove(fieldsInOrder.size() - 1);
         turn--;
     }
-
-
 }
