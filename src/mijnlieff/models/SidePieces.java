@@ -1,12 +1,8 @@
 package mijnlieff.models;
 
 import javafx.collections.ObservableList;
-import javafx.geometry.Side;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import mijnlieff.views.MijnlieffListener;
 import mijnlieff.views.SideField;
 import mijnlieff.pieces.Color;
 import mijnlieff.pieces.Piece;
@@ -28,14 +24,14 @@ public class SidePieces extends VBox {
 
     private Color color;
 
-    private ArrayList<MijnlieffListener> listeners;
+    private ArrayList<SideField> listeners;
     private ArrayList<Piece> pieces;
 
     public SidePieces() {
 
         listeners = new ArrayList<>();
         pieces = new ArrayList<>();
-        ObservableList<Node> children = getChildren();
+
 
     }
 
@@ -50,7 +46,7 @@ public class SidePieces extends VBox {
         pieces.add(new Piece(color, PieceType.PULLER));
     }
 
-    public void registerListener(MijnlieffListener listener) {
+    public void registerListener(SideField listener) {
         listeners.add(listener);
     }
 
@@ -63,7 +59,7 @@ public class SidePieces extends VBox {
     }
 
     public void fireInvalidationEvent() {
-        for (MijnlieffListener listener: listeners) {
+        for (SideField listener: listeners) {
             listener.invalidationEvent();
         }
     }

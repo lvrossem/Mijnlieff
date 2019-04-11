@@ -8,7 +8,7 @@ import mijnlieff.pieces.Piece;
 
 import java.util.ArrayList;
 
-public class SideField extends ImageView implements MijnlieffListener {
+public class SideField extends ImageView {
 
     private SidePieces model;
     private int index;

@@ -46,7 +46,10 @@ public class MijnlieffController {
         blackSide.setPieces();
         whiteSide.setModels();
         whiteSide.setPieces();
-        client = new Client();
+    }
+
+    public void makeConnection(String server, int poort) {
+        client = new Client(server, poort);
         String message = client.getNewMove();
         while (message.contains("F")) {
             board.addCode(message);

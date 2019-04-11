@@ -32,7 +32,8 @@ public class Mijnlieff extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("mijnlieff/img/logo3.png"));
-        primaryStage.show();
+        controller.makeConnection(getParameters().getRaw().get(0), Integer.parseInt(getParameters().getRaw().get(1)));
+
 
         if (getParameters().getRaw().size() == 3) {
             controller.end();
@@ -40,10 +41,9 @@ public class Mijnlieff extends Application {
             File out = new File(getParameters().getRaw().get(2));
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", out);
             Platform.exit();
+        } else {
+            primaryStage.show();
         }
-
-
-        
     }
 
 

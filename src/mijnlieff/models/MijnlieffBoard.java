@@ -7,7 +7,6 @@ import mijnlieff.pieces.Color;
 import mijnlieff.pieces.PieceType;
 import mijnlieff.views.Field;
 import mijnlieff.pieces.Piece;
-import mijnlieff.views.MijnlieffListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,7 +87,7 @@ public class MijnlieffBoard extends GridPane {
     }
 
     public void fireInvalidationEvent() {
-        for (MijnlieffListener listener: listeners) {
+        for (Field listener: listeners) {
             listener.invalidationEvent();
 
         }

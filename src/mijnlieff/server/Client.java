@@ -15,12 +15,12 @@ public class Client
     private String message;
 
 
-    public Client() {
+    public Client(String server, int poort) {
 
         message = "";
 
         try {
-            socket = new Socket("cercan.ugent.be", 80);
+            socket = new Socket(server, poort);
 
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
