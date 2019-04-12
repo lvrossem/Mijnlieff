@@ -56,6 +56,7 @@ public class MijnlieffController {
             message = client.getNewMove();
         }
         board.addCode(message);
+        client.closeConnection();
 
     }
 
