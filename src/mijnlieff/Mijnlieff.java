@@ -18,7 +18,7 @@ public class Mijnlieff extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        //TODO: getParameters() apart zetten
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Mijnlieff.fxml"));
 
