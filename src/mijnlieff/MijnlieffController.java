@@ -2,12 +2,21 @@ package mijnlieff;
 
 
 
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import mijnlieff.server.Client;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.models.SidePieces;
 import mijnlieff.pieces.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,6 +34,7 @@ public class MijnlieffController {
     public SidePieces blackSide;
     private Client client;
 
+
     private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
     static {
         typePerChar.put('o', PieceType.PULLER);
@@ -33,32 +43,19 @@ public class MijnlieffController {
         typePerChar.put('X', PieceType.LOPER);
     }
 
-
-
-
-    public void initialize() {
-        whiteSide.setColor(Color.WHITE);
-        blackSide.setColor(Color.BLACK);
-        backBut.setDisable(true);
-        startBut.setDisable(true);
-        board.setModels();
-        blackSide.setModels();
-        blackSide.setPieces();
-        whiteSide.setModels();
-        whiteSide.setPieces();
-    }
-
-    public void makeConnection(String server, int poort) {
-        client = new Client(server, poort);
+    public void viewerConnection(String server, int port) {
+        client = new Client(server, port);
         String message = client.getNewMove();
-        while (message.contains("F")) {
+        boolean ending = false;
+        while (!ending) {
             board.addCode(message);
             message = client.getNewMove();
+            ending = message.contains("T");
         }
-        board.addCode(message);
         client.closeConnection();
-
     }
+
+
 
 
     public void next() {

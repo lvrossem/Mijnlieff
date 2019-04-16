@@ -13,27 +13,42 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Mijnlieff extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //TODO: getParameters() apart zetten
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Mijnlieff.fxml"));
+        ArrayList<String> args = (ArrayList) getParameters().getRaw();
+        primaryStage.setResizable(false);
+        Parent root;
+        Scene scene;
 
-        Parent root = loader.load();
+        if (args.size() == 0) {
+            root = FXMLLoader.load(getClass().getResource("ServerSelect.fxml"));
+            scene = new Scene(root, 600.0, 350.0);
+        } else {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Mijnlieff.fxml"));
+            root = loader.load();
+            scene = new Scene(root, 936.0, 712.0);
+            MijnlieffController controller = loader.getController();
+            if (args.size() == 2) {
+                controller.viewerConnection(args.get(0), Integer.parseInt(args.get(1)));
+            } else {
+            }
+        }
 
-        MijnlieffController controller = loader.getController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServerSelect.fxml"));
+
 
         primaryStage.setTitle("Mijnlieff");
-        primaryStage.setResizable(false);
-        Scene scene = new Scene(root, 936.0, 712.0);
+
+        Scene scene = new Scene(root, 600.0, 350.0);
 
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("mijnlieff/img/logo3.png"));
-        controller.makeConnection(getParameters().getRaw().get(0), Integer.parseInt(getParameters().getRaw().get(1)));
-
+        primaryStage.show();
 
         if (getParameters().getRaw().size() == 3) {
             controller.end();
