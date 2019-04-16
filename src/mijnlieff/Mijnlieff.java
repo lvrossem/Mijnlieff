@@ -14,51 +14,46 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Mijnlieff extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        ArrayList<String> args = (ArrayList) getParameters().getRaw();
+        List<String> args = getParameters().getRaw();
         primaryStage.setResizable(false);
+        primaryStage.setTitle("Mijnlieff");
+        primaryStage.getIcons().add(new Image("mijnlieff/img/logo3.png"));
         Parent root;
         Scene scene;
+
 
         if (args.size() == 0) {
             root = FXMLLoader.load(getClass().getResource("ServerSelect.fxml"));
             scene = new Scene(root, 600.0, 350.0);
+            primaryStage.setScene(scene);
+            primaryStage.show();
         } else {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Mijnlieff.fxml"));
             root = loader.load();
             scene = new Scene(root, 936.0, 712.0);
             MijnlieffController controller = loader.getController();
-            if (args.size() == 2) {
-                controller.viewerConnection(args.get(0), Integer.parseInt(args.get(1)));
+            controller.viewerConnection(args.get(0), Integer.parseInt(args.get(1)));
+            primaryStage.setScene(scene);
+            if (args.size() == 3) {
+                controller.end();
+                WritableImage image = scene.snapshot(null);
+                File out = new File(getParameters().getRaw().get(2));
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", out);
+                Platform.exit();
             } else {
+                primaryStage.show();
             }
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ServerSelect.fxml"));
 
 
-        primaryStage.setTitle("Mijnlieff");
-
-        Scene scene = new Scene(root, 600.0, 350.0);
-
-        primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image("mijnlieff/img/logo3.png"));
-        primaryStage.show();
-
-        if (getParameters().getRaw().size() == 3) {
-            controller.end();
-            WritableImage image = scene.snapshot(null);
-            File out = new File(getParameters().getRaw().get(2));
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", out);
-            Platform.exit();
-        } else {
-            primaryStage.show();
-        }
     }
 
 

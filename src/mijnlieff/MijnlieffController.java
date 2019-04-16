@@ -34,6 +34,18 @@ public class MijnlieffController {
     public SidePieces blackSide;
     private Client client;
 
+    public void initialize() {
+        whiteSide.setColor(Color.WHITE);
+        blackSide.setColor(Color.BLACK);
+        backBut.setDisable(true);
+        startBut.setDisable(true);
+        board.setModels();
+        blackSide.setModels();
+        blackSide.setPieces();
+        whiteSide.setModels();
+        whiteSide.setPieces();
+    }
+
 
     private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
     static {
@@ -45,14 +57,13 @@ public class MijnlieffController {
 
     public void viewerConnection(String server, int port) {
         client = new Client(server, port);
+
         String message = client.getNewMove();
-        boolean ending = false;
-        while (!ending) {
+        while (message.contains("F")) {
             board.addCode(message);
             message = client.getNewMove();
-            ending = message.contains("T");
         }
-        client.closeConnection();
+        board.addCode(message);
     }
 
 

@@ -57,5 +57,23 @@ public class Client
     return null;
     }
 
+    public String checkName(String name) {
+        try {
+            String message = "";
+
+            pw.println("I " + name);
+            message = br.readLine();
+
+
+            System.out.println(message);
+            return message;
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
 
 }
