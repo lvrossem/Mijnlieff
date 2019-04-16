@@ -1,0 +1,34 @@
+controller.makeConnection(getParameters().getRaw().get(0), Integer.parseInt(getParameters().getRaw().get(1)));
+
+
+        if (getParameters().getRaw().size() == 3) {
+            controller.end();
+            WritableImage image = scene.snapshot(null);
+            File out = new File(getParameters().getRaw().get(2));
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", out);
+            Platform.exit();
+        } else {
+            primaryStage.show();
+        }
+
+
+
+whiteSide.setColor(Color.WHITE);
+        blackSide.setColor(Color.BLACK);
+        backBut.setDisable(true);
+        startBut.setDisable(true);
+        board.setModels();
+        blackSide.setModels();
+        blackSide.setPieces();
+        whiteSide.setModels();
+        whiteSide.setPieces();
+
+
+String message = client.getNewMove();
+        boolean ending = false;
+        while (!ending) {
+            board.addCode(message);
+            message = client.getNewMove();
+            ending = message.contains("T");
+        }
+        client.closeConnection();
