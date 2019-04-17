@@ -24,7 +24,7 @@ whiteSide.setColor(Color.WHITE);
         whiteSide.setPieces();
 
 
-String message = client.getNewMove();
+	String message = client.getNewMove();
         boolean ending = false;
         while (!ending) {
             board.addCode(message);

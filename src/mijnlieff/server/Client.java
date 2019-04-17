@@ -5,19 +5,19 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Client
-{
+public class Client {
 
     private Socket socket;
     private PrintWriter pw;
     private BufferedReader br;
-    private String message;
 
 
     public Client(String server, int poort) {
 
-        message = "";
+
+
 
         try {
             socket = new Socket(server, poort);
@@ -36,6 +36,27 @@ public class Client
 
         pw.close();
 
+    }
+
+    public ArrayList<String> getOpponents() {
+        ArrayList<String> opponents = new ArrayList<>();
+        try {
+            pw.println("W");
+
+
+            String opponent = "";
+
+            while (!opponent.equals("+")) {
+                opponent = br.readLine();
+                opponents.add(opponent);
+                System.out.println(opponent);
+            }
+
+            return opponents;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return opponents;
     }
 
 
@@ -59,10 +80,10 @@ public class Client
 
     public String checkName(String name) {
         try {
-            String message = "";
+
 
             pw.println("I " + name);
-            message = br.readLine();
+            String message = br.readLine();
 
 
             System.out.println(message);

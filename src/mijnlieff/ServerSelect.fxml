@@ -13,5 +13,6 @@
       <Label layoutX="160.0" layoutY="170.0" text="Kies een poortnumer:" />
       <Button fx:id="connect" layoutX="464.0" layoutY="293.0" mnemonicParsing="false" onAction="#gameConnection" prefHeight="32.0" prefWidth="111.0" text="Verbinden" />
       <Label fx:id="errorLabel" layoutX="257.0" layoutY="300.0" text="Gelieve beide velden in te vullen" textFill="#ea0000" visible="false" />
+      <Button layoutX="14.0" layoutY="293.0" mnemonicParsing="false" onAction="#quit" prefHeight="32.0" prefWidth="94.0" text="Spel verlaten" />
    </children>
 </AnchorPane>

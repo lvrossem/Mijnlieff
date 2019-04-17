@@ -12,8 +12,6 @@ import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Mijnlieff extends Application {
@@ -38,7 +36,7 @@ public class Mijnlieff extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Mijnlieff.fxml"));
             root = loader.load();
             scene = new Scene(root, 936.0, 712.0);
-            MijnlieffController controller = loader.getController();
+            MijnlieffBoardController controller = loader.getController();
             controller.viewerConnection(args.get(0), Integer.parseInt(args.get(1)));
             primaryStage.setScene(scene);
             if (args.size() == 3) {
