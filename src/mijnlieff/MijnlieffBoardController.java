@@ -104,9 +104,11 @@ public class MijnlieffBoardController {
     public void back() {
         int turn = board.getTurn();
 
-        ArrayList<Integer> p = board.getFieldsInOrder();
-        int lastPlacedIndex = p.get(p.size()-1);
-        PieceType type = board.getPieces().get(lastPlacedIndex).getType();
+        ArrayList<MijnlieffBoard.Coordinate> p = board.getFieldsInOrder();
+        MijnlieffBoard.Coordinate lastPlaced = p.get(p.size()-1);
+        int row = lastPlaced.getRow();
+        int column = lastPlaced.getColumn();
+        PieceType type = board.getPieces()[row][column].getType();
         board.deletePiece();
         if (turn % 2 != 0) {
             whiteSide.addPieceImage(type);

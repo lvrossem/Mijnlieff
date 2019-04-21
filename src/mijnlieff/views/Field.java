@@ -35,9 +35,10 @@ public class Field extends ImageView {
     }
 
     public void setAppearance() {
-        ArrayList<Piece> pieces = model.getPieces();
-        if (pieces.get(row*4 + column) != null) {
-            setImage(new Image("/mijnlieff/img/" + pieces.get(row * 4 + column).getColor().getColorString() + pieces.get(row * 4 + column).getType().getUrl()));
+        Piece[][] pieces = model.getPieces();
+        Piece p = pieces[row][column];
+        if (p != null) {
+            setImage(new Image("/mijnlieff/img/" + p.getColor().getColorString() + p.getType().getUrl()));
         } else
             setImage(new Image("/mijnlieff/img/red_square.png"));
     }

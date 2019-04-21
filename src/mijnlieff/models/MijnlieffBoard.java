@@ -22,17 +22,15 @@ public class MijnlieffBoard extends GridPane {
     }
 
 
-    private ArrayList<Integer> fieldsInOrder;
-    private ArrayList<Piece> pieces;
+    private ArrayList<Coordinate> fieldsInOrder;
+    private Piece[][] pieces;
     private ArrayList<Field> listeners;
     private ArrayList<String> codes;
     private int turn;
 
     public MijnlieffBoard() {
-        pieces = new ArrayList<>();
-        for (int i = 0; i < 16; i++) {
-            pieces.add(null);
-        }
+        pieces = new Piece[10][10];
+
         fieldsInOrder = new ArrayList<>();
         listeners = new ArrayList<>();
         codes = new ArrayList<>();
@@ -75,9 +73,9 @@ public class MijnlieffBoard extends GridPane {
         int column = Character.getNumericValue(code.charAt(6));
 
         Piece piece = new Piece(color, typePerChar.get(code.charAt(8)));
-        pieces.set(4*row + column, piece);
+        pieces[row][column] = piece;
 
-        fieldsInOrder.add(4*row + column);
+        fieldsInOrder.add(new Coordinate(row, column));
         fireInvalidationEvent();
         turn++;
     }
@@ -93,17 +91,35 @@ public class MijnlieffBoard extends GridPane {
         }
     }
 
-    public ArrayList<Integer> getFieldsInOrder() {
+    public static class Coordinate {
+        private int row;
+        private int column;
+
+        public Coordinate(int row, int column) {
+            this.row = row;
+            this.column = column;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getColumn() {
+            return column;
+        }
+    }
+
+    public ArrayList<Coordinate> getFieldsInOrder() {
         return fieldsInOrder;
     }
 
-    public ArrayList<Piece> getPieces() {
+    public Piece[][] getPieces() {
         return pieces;
     }
 
     public void deletePiece() {
-        int coordinaat = fieldsInOrder.get(fieldsInOrder.size()-1);
-        pieces.set(coordinaat, null);
+        Coordinate coordinate = fieldsInOrder.get(fieldsInOrder.size()-1);
+        pieces[coordinate.getRow()][coordinate.getColumn()] = null;
         fireInvalidationEvent();
         fieldsInOrder.remove(fieldsInOrder.size() - 1);
         turn--;
