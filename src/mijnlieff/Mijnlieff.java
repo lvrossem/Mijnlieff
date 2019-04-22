@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
+import mijnlieff.controllers.MijnlieffBoardController;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -25,7 +26,6 @@ public class Mijnlieff extends Application {
         primaryStage.getIcons().add(new Image("mijnlieff/img/logo3.png"));
         Parent root;
         Scene scene;
-
 
         if (args.size() == 0) {
             root = FXMLLoader.load(getClass().getResource("ServerSelect.fxml"));
@@ -49,6 +49,53 @@ public class Mijnlieff extends Application {
                 primaryStage.show();
             }
         }
+        /*
+        MijnlieffBoard board = new MijnlieffBoard();
+
+        String repr = "X 0 0 2 2 4 4 6 6";
+        BorderPane borderPane = new BorderPane();
+
+
+        SidePieces whiteSide = new SidePieces();
+        SidePieces blackside = new SidePieces();
+        whiteSide.setColor(Color.WHITE);
+        blackside.setColor(Color.BLACK);
+        whiteSide.fireInvalidationEvent();
+        blackside.fireInvalidationEvent();
+
+        String indices = repr.substring(2);
+
+        for (int i = 0; i < 4; i++) {
+            int row = Character.getNumericValue(indices.charAt(4*i));
+            int column = Character.getNumericValue(indices.charAt(4*i+2));
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    Field field = new Field();
+                    field.setFitHeight(80);
+                    field.setFitWidth(80);
+                    field.setModel(board);
+                    board.add(field, column + j, row + k);
+                    field.setRow();
+                }
+            }
+        }
+
+        board.fireInvalidationEvent();
+        board.setAlignment(Pos.CENTER);
+
+        borderPane.setCenter(board);
+        borderPane.setLeft(whiteSide);
+        borderPane.setRight(blackside);
+
+
+        Scene test = new Scene(borderPane, 900, 700);
+        primaryStage.setScene(test);
+        primaryStage.show();
+        * */
+
+
+
+
 
 
 

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mijnlieff.WachtrijController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mijnlieff.controllers.WachtrijController">
    <children>
-      <ListView layoutX="-2.0" layoutY="-3.0" prefHeight="400.0" prefWidth="266.0" />
+      <ListView fx:id="listView" layoutX="-2.0" layoutY="-3.0" prefHeight="400.0" prefWidth="266.0" />
+      <Button layoutX="362.0" layoutY="184.0" mnemonicParsing="false" onAction="#refreshList" text="Bekijk tegenstanders" />
+      <Button fx:id="challenge" layoutX="394.0" layoutY="245.0" mnemonicParsing="false" onAction="#challengePlayer" text="Daag uit" />
+      <Label fx:id="nothingSelected" layoutX="336.0" layoutY="277.0" text="Gelieve eerst een speler te kiezen" textFill="#f00303" visible="false" />
+      <Label fx:id="noPlayer" layoutX="321.0" layoutY="216.0" text="Er zijn geen tegenstanders beschikbaar" textFill="#f50707" visible="false" />
    </children>
 </AnchorPane>

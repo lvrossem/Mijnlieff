@@ -31,7 +31,15 @@ public class SidePieces extends VBox {
 
         listeners = new ArrayList<>();
         pieces = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            SideField sideField = new SideField();
+            sideField.setFitHeight(78);
+            sideField.setFitWidth(78);
+            sideField.setModel(this);
+            sideField.setIndex(i);
+            getChildren().add(sideField);
 
+        }
 
     }
 
@@ -44,6 +52,7 @@ public class SidePieces extends VBox {
         pieces.add(new Piece(color, PieceType.PUSHER));
         pieces.add(new Piece(color, PieceType.PULLER));
         pieces.add(new Piece(color, PieceType.PULLER));
+        fireInvalidationEvent();
     }
 
     public void registerListener(SideField listener) {
@@ -52,6 +61,7 @@ public class SidePieces extends VBox {
 
     public void setColor(Color color) {
         this.color = color;
+        setPieces();
     }
 
     public ArrayList<Piece> getPieces() {

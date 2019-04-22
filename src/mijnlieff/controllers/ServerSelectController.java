@@ -1,10 +1,11 @@
-package mijnlieff;
+package mijnlieff.controllers;
 
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import mijnlieff.controllers.MijnlieffController;
 import mijnlieff.server.Client;
 
 public class ServerSelectController extends MijnlieffController {
@@ -12,6 +13,7 @@ public class ServerSelectController extends MijnlieffController {
     public TextField portField;
     public TextField serverField;
     public Label errorLabel;
+
 
 
     public void gameConnection() {
@@ -27,7 +29,7 @@ public class ServerSelectController extends MijnlieffController {
                 System.out.println("er is geen client");
             }
             System.out.println("verbinding is gelukt");
-            Scene next = changeScene("NameSelect.fxml", 253, 586);
+            Scene next = changeScene("NameSelect.fxml", 300, 600);
 
             Stage primaryStage = (Stage) errorLabel.getScene().getWindow();
 

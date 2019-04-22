@@ -1,5 +1,6 @@
-package mijnlieff;
+package mijnlieff.controllers;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.views.Field;
@@ -10,11 +11,12 @@ public class GameController {
 
     private String repr = "X 0 0 2 2 4 4 6 6";
 
-    public GridPane gridPane;
+
     private MijnlieffBoard board;
 
     public void initialize() {
-        gridPane = new GridPane();
+        AnchorPane anchorPane = new AnchorPane();
+        GridPane gridPane = new GridPane();
         String indices = repr.substring(2);
         for (int i = 0; i < 4; i++) {
             int row = Character.getNumericValue(indices.charAt(4*i));
@@ -30,6 +32,9 @@ public class GameController {
 
 
         }
+
+        anchorPane.getChildren().add(gridPane);
+
 
 
 

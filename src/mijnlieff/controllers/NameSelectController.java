@@ -1,12 +1,11 @@
-package mijnlieff;
+package mijnlieff.controllers;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import mijnlieff.controllers.MijnlieffController;
 import mijnlieff.server.Client;
 
 public class NameSelectController extends MijnlieffController {
@@ -28,7 +27,7 @@ public class NameSelectController extends MijnlieffController {
             String answer = client.checkName(name);
             if (answer.equals("+")) {
                 System.out.println("sgoed jonge");
-                Scene next = changeScene("Wachtrij.fxml", 600, 600);
+                Scene next = changeScene("Wachtrij.fxml", 400, 600);
 
                 Stage primaryStage = (Stage) errorLabel.getScene().getWindow();
 

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="serverslect" maxHeight="400.0" maxWidth="600.0" minHeight="339.0" minWidth="590.0" prefHeight="339.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mijnlieff.ServerSelectController">
+<AnchorPane id="serverslect" maxHeight="400.0" maxWidth="600.0" minHeight="339.0" minWidth="590.0" prefHeight="339.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mijnlieff.controllers.ServerSelectController">
    <children>
       <TextField fx:id="serverField" layoutX="160.0" layoutY="111.0" prefHeight="26.0" prefWidth="258.0" />
       <TextField fx:id="portField" layoutX="160.0" layoutY="198.0" prefHeight="26.0" prefWidth="258.0" />

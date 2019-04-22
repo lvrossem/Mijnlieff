@@ -14,51 +14,10 @@
 
 <?import mijnlieff.views.SideField?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane maxHeight="712.0" maxWidth="936.0" minHeight="712.0" minWidth="936.0" prefHeight="712.0" prefWidth="936.0" fx:controller="mijnlieff.MijnlieffBoardController" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane maxHeight="712.0" maxWidth="936.0" minHeight="712.0" minWidth="936.0" prefHeight="712.0" prefWidth="936.0" fx:controller="mijnlieff.controllers.MijnlieffBoardController" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <SidePieces fx:id="blackSide" layoutX="844.0" layoutY="14.0">
-         <children>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-toren.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-toren.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-loper.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-loper.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-pusher.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-pusher.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-puller.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/zwart-puller.png" />
-               </image>
-            </SideField>
-         </children>
+
       </SidePieces>
       <MijnlieffBoard fx:id="board" layoutX="168.0" layoutY="26.0">
          <columnConstraints>
@@ -161,49 +120,7 @@
       <Button fx:id="nextBut" layoutX="468.0" layoutY="685.0" mnemonicParsing="false" onAction="#next" prefHeight="26.0" prefWidth="234.0" text="&gt;" />
       <Button fx:id="endBut" layoutX="702.0" layoutY="685.0" mnemonicParsing="false" onAction="#end" prefHeight="26.0" prefWidth="234.0" text="&gt;|" />
       <SidePieces fx:id="whiteSide" layoutX="14.0" layoutY="14.0" prefHeight="562.0" prefWidth="78.0">
-         <children>
-            <SideField fitHeight="78.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
 
-               <image>
-                  <Image url="@img/wit-toren.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/wit-toren.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" layoutX="10.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/wit-loper.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" layoutX="10.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/wit-loper.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" layoutX="10.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/wit-pusher.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" layoutX="10.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/wit-pusher.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" layoutX="10.0" layoutY="401.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/wit-puller.png" />
-               </image>
-            </SideField>
-            <SideField fitHeight="78.0" fitWidth="78.0" layoutX="10.0" layoutY="479.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@img/wit-puller.png" />
-               </image>
-            </SideField>
-         </children>
       </SidePieces>
    </children>
 </AnchorPane>

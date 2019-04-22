@@ -1,10 +1,9 @@
-package mijnlieff;
+package mijnlieff.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import mijnlieff.server.Client;
 
 import java.io.IOException;
@@ -25,12 +24,13 @@ public abstract class MijnlieffController {
     }
 
     public Scene changeScene(String fxml, int height, int width) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mijnlieff/" + fxml));
 
         Scene scene;
         try {
             Parent root = loader.load();
             ((MijnlieffController) loader.getController()).setClient(client);
+            System.out.println("doorgegeven");
             scene = new Scene(root, width, height);
             return scene;
 

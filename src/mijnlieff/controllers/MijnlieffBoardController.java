@@ -1,4 +1,4 @@
-package mijnlieff;
+package mijnlieff.controllers;
 
 
 
@@ -33,6 +33,7 @@ public class MijnlieffBoardController {
     public SidePieces whiteSide;
     public SidePieces blackSide;
     private Client client;
+    private String configuration;
 
     public void initialize() {
         whiteSide.setColor(Color.WHITE);
