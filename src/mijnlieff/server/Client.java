@@ -14,6 +14,8 @@ public class Client {
     private BufferedReader br;
 
 
+
+
     public Client(String server, int poort) {
 
 
@@ -30,6 +32,21 @@ public class Client {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void enterQueue() {
+        pw.println("P");
+
+    }
+
+    public String challengePlayer(String player) {
+        pw.println("C " + player);
+        try {
+            return br.readLine();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+         return null;
     }
 
     public void closeConnection() {

@@ -17,7 +17,7 @@ public class NameSelectController extends MijnlieffController {
 
 
 
-
+    //registreert de naam bij de server
     public void processName() {
         String name = nameField.getText();
         if (name.isEmpty()) {
@@ -35,11 +35,9 @@ public class NameSelectController extends MijnlieffController {
             } else {
                 errorLabel.setText("Deze naam is al in gebruik");
             }
-            System.out.println(answer);
+
         }
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+
 }

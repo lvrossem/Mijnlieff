@@ -12,5 +12,6 @@
       <Button fx:id="challenge" layoutX="394.0" layoutY="245.0" mnemonicParsing="false" onAction="#challengePlayer" text="Daag uit" />
       <Label fx:id="nothingSelected" layoutX="336.0" layoutY="277.0" text="Gelieve eerst een speler te kiezen" textFill="#f00303" visible="false" />
       <Label fx:id="noPlayer" layoutX="321.0" layoutY="216.0" text="Er zijn geen tegenstanders beschikbaar" textFill="#f50707" visible="false" />
+      <Button layoutX="386.0" layoutY="295.0" mnemonicParsing="false" onAction="#enterQueue" text="Deelnemen" />
    </children>
 </AnchorPane>

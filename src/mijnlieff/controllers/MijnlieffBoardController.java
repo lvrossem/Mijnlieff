@@ -47,7 +47,7 @@ public class MijnlieffBoardController {
         whiteSide.setPieces();
     }
 
-
+    //linkt alle karakters aan het corresponderende stuktype
     private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
     static {
         typePerChar.put('o', PieceType.PULLER);
@@ -69,7 +69,7 @@ public class MijnlieffBoardController {
 
 
 
-
+    //volgende zet
     public void next() {
         int turn = board.getTurn();
 
@@ -101,7 +101,7 @@ public class MijnlieffBoardController {
 
     }
 
-
+    //gaat één zet terug
     public void back() {
         int turn = board.getTurn();
 

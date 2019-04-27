@@ -124,4 +124,58 @@ public class MijnlieffBoard extends GridPane {
         fieldsInOrder.remove(fieldsInOrder.size() - 1);
         turn--;
     }
+
+    public int[] getScore() {
+        int[] points = new int[2];
+
+        //telt de punten adhv de rijen
+        for (int i = 0; i<10; i++) {
+            int white = 0;
+            int black = 0;
+            for (int j = 0; j<10; j++) {
+                Piece piece = pieces[i][j];
+                if (piece != null) {
+                    if (piece.getColor() == Color.WHITE) {
+                        white++;
+                    } else {
+                        black++;
+                    }
+                }
+            }
+
+            if (white >= 3) {
+                points[0] += white - 2;
+            }
+
+            if (black >= 3) {
+                points[1] += black - 1;
+            }
+
+            white = 0;
+            black = 0;
+
+            for (int j = 0; j<10; j++) {
+                Piece piece = pieces[j][i];
+                if (piece != null) {
+                    if (piece.getColor() == Color.WHITE) {
+                        white++;
+                    } else {
+                        black++;
+                    }
+                }
+            }
+
+            if (white >= 3) {
+                points[0] += white - 2;
+            }
+
+            if (black >= 3) {
+                points[1] += black - 1;
+            }
+
+        }
+
+
+        return points;
+    }
 }

@@ -4,12 +4,18 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mijnlieff.controllers.MijnlieffBoardController;
+import mijnlieff.models.MijnlieffBoard;
+import mijnlieff.models.SidePieces;
+import mijnlieff.pieces.Color;
+import mijnlieff.views.Field;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -49,10 +55,12 @@ public class Mijnlieff extends Application {
                 primaryStage.show();
             }
         }
+
+
         /*
         MijnlieffBoard board = new MijnlieffBoard();
 
-        String repr = "X 0 0 2 2 4 4 6 6";
+        String repr = "X 0 2 2 4 2 0 4 2";
         BorderPane borderPane = new BorderPane();
 
 
@@ -91,7 +99,8 @@ public class Mijnlieff extends Application {
         Scene test = new Scene(borderPane, 900, 700);
         primaryStage.setScene(test);
         primaryStage.show();
-        * */
+        **/
+
 
 
 

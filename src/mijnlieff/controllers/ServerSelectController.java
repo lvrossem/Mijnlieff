@@ -23,11 +23,9 @@ public class ServerSelectController extends MijnlieffController {
 
         if (!server.equals("") && !poort.equals("")) {
 
-
+            errorLabel.setVisible(false);
             client = new Client(server, Integer.parseInt(poort));
-            if (client.equals(null)) {
-                System.out.println("er is geen client");
-            }
+
             System.out.println("verbinding is gelukt");
             Scene next = changeScene("NameSelect.fxml", 300, 600);
 
