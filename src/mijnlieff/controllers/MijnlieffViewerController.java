@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 
 
-public class MijnlieffBoardController {
+public class MijnlieffViewerController extends MijnlieffController {
 
 
     public Button backBut;
@@ -32,7 +32,6 @@ public class MijnlieffBoardController {
     public MijnlieffBoard board;
     public SidePieces whiteSide;
     public SidePieces blackSide;
-    private Client client;
     private String configuration;
 
     public void initialize() {

@@ -14,7 +14,6 @@ public abstract class MijnlieffController {
 
     public void quit() {
         Platform.exit();
-
     }
 
 

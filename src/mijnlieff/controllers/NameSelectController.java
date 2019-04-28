@@ -27,7 +27,7 @@ public class NameSelectController extends MijnlieffController {
             String answer = client.checkName(name);
             if (answer.equals("+")) {
                 System.out.println("sgoed jonge");
-                Scene next = changeScene("Wachtrij.fxml", 400, 600);
+                Scene next = changeScene("KeuzeScherm.fxml", 608, 837);
 
                 Stage primaryStage = (Stage) errorLabel.getScene().getWindow();
 

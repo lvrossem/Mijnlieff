@@ -14,7 +14,7 @@
 
 <?import mijnlieff.views.SideField?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane maxHeight="712.0" maxWidth="936.0" minHeight="712.0" minWidth="936.0" prefHeight="712.0" prefWidth="936.0" fx:controller="mijnlieff.controllers.MijnlieffBoardController" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane maxHeight="712.0" maxWidth="936.0" minHeight="712.0" minWidth="936.0" prefHeight="712.0" prefWidth="936.0" fx:controller="mijnlieff.controllers.MijnlieffViewerController" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
    <children>
       <SidePieces fx:id="blackSide" layoutX="844.0" layoutY="14.0">
 

@@ -1,7 +1,9 @@
 package mijnlieff.controllers;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import mijnlieff.controllers.MijnlieffController;
 
 import java.util.ArrayList;
@@ -35,6 +37,14 @@ public class WachtrijController extends MijnlieffController {
         if (selected != null) {
             nothingSelected.setVisible(false);
             String answer = client.challengePlayer(selected);
+
+            if (answer.contains("T")) {
+                Scene next = changeScene("BordKeuzeController.fxml", 608, 837);
+
+                Stage primaryStage = (Stage) listView.getScene().getWindow();
+
+                primaryStage.setScene(next);
+            }
         } else {
             nothingSelected.setVisible(true);
         }
