@@ -77,6 +77,8 @@ public class BordKeuzeController extends MijnlieffController {
             Stage stage = (Stage) errorLabel.getScene().getWindow();
 
             MijnlieffGameController controller = new MijnlieffGameController(configuration, stage);
+            client.sendBoard(configuration);
+
         }
     }
 }

@@ -1,10 +1,12 @@
 package mijnlieff.controllers;
 
+import javafx.beans.Observable;
+import javafx.concurrent.Worker;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import mijnlieff.controllers.MijnlieffController;
+import mijnlieff.tasks.WaitForAnswerTask;
 
 import java.util.ArrayList;
 
@@ -14,6 +16,8 @@ public class WachtrijController extends MijnlieffController {
     public ListView<String> listView;
     public Label nothingSelected;
     public Label noPlayer;
+    public Label fatalError;
+    private WaitForAnswerTask waitTask;
 
     // plaatst alle actieve spelers in de wachtrij
     public void refreshList() {
@@ -44,6 +48,10 @@ public class WachtrijController extends MijnlieffController {
                 Stage primaryStage = (Stage) listView.getScene().getWindow();
 
                 primaryStage.setScene(next);
+            } else {
+                waitTask = new WaitForAnswerTask(client);
+                waitTask.stateProperty().addListener(this::boardStateChanged);
+                new Thread(waitTask).start();
             }
         } else {
             nothingSelected.setVisible(true);
@@ -51,9 +59,26 @@ public class WachtrijController extends MijnlieffController {
     }
 
 
+
     public void enterQueue() {
+
         client.enterQueue();
+        waitTask = new WaitForAnswerTask(client);
+        waitTask.stateProperty().addListener(this::challengeStateChanged);
+        new Thread(waitTask).start();
+
     }
+
+    public void challengeStateChanged(Observable o) {
+        if (waitTask.getState() == Worker.State.SUCCEEDED) {
+            String serverAnswer = waitTask.getValue();
+            System.out.println(serverAnswer);
+        } else if (waitTask.getState() == Worker.State.FAILED) {
+            fatalError.setText("Er is een fout gebeurd...");
+        }
+    }
+
+
 
 
 }

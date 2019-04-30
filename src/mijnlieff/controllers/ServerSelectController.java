@@ -26,8 +26,8 @@ public class ServerSelectController extends MijnlieffController {
             errorLabel.setVisible(false);
             client = new Client(server, Integer.parseInt(poort));
 
-            System.out.println("verbinding is gelukt");
-            Scene next = changeScene("NameSelect.fxml", 300, 600);
+
+            Scene next = changeScene("NameSelect.fxml", 201, 439);
 
             //verkrijgt de huidige window waarin de scene vervangen moet worden
             Stage primaryStage = (Stage) errorLabel.getScene().getWindow();

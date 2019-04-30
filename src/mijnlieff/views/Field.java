@@ -14,9 +14,14 @@ public class Field extends ImageView {
     private int row;
     private int column;
 
+    public Field() {
+        setOnMouseClicked(e -> {});
+    }
+
     public void setModel(MijnlieffBoard model) {
         this.model = model;
         register();
+
 
     }
 
@@ -39,8 +44,9 @@ public class Field extends ImageView {
         Piece p = pieces[row][column];
         if (p != null) {
             setImage(new Image("/mijnlieff/img/" + p.getColor().getColorString() + p.getType().getUrl()));
-        } else
+        } else {
             setImage(new Image("/mijnlieff/img/red_square.png"));
+        }
     }
 
     public void invalidationEvent() {

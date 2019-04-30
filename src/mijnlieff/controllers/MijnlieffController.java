@@ -24,13 +24,13 @@ public abstract class MijnlieffController {
 
     //bouwt een nieuwe scene aan de hand van de padnaam van een fxml-bestand en de dimensies van de window
     public Scene changeScene(String fxml, int height, int width) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mijnlieff/" + fxml));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/mijnlieff/fxml/" + fxml));
 
         Scene scene;
         try {
             Parent root = loader.load();
             ((MijnlieffController) loader.getController()).setClient(client);
-            System.out.println("doorgegeven");
+
             scene = new Scene(root, width, height);
             return scene;
 

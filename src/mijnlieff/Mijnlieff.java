@@ -28,12 +28,12 @@ public class Mijnlieff extends Application {
         Scene scene;
 
         if (args.size() == 0) {
-            root = FXMLLoader.load(getClass().getResource("ServerSelect.fxml"));
+            root = FXMLLoader.load(getClass().getResource("fxml/ServerSelect.fxml"));
             scene = new Scene(root, 600.0, 350.0);
             primaryStage.setScene(scene);
             primaryStage.show();
         } else {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Mijnlieff.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Mijnlieff.fxml"));
             root = loader.load();
             scene = new Scene(root, 936.0, 712.0);
             MijnlieffViewerController controller = loader.getController();

@@ -49,6 +49,7 @@ public class MijnlieffBoard extends GridPane {
     public void setModels() {
         ObservableList<Node> children = getChildren();
 
+
         for (Node node: children) {
 
             ((Field) node).setModel(this);

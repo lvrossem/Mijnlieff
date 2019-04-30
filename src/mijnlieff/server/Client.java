@@ -18,9 +18,6 @@ public class Client {
 
     public Client(String server, int poort) {
 
-
-
-
         try {
             socket = new Socket(server, poort);
 
@@ -31,7 +28,16 @@ public class Client {
 
         } catch (IOException ex) {
             ex.printStackTrace();
+
         }
+    }
+
+    public BufferedReader getBr() {
+        return br;
+    }
+
+    public void sendBoard(String board) {
+        pw.println(board);
     }
 
     public void enterQueue() {
@@ -41,6 +47,7 @@ public class Client {
 
     public String challengePlayer(String player) {
         pw.println("C " + player);
+
         try {
             return br.readLine();
         } catch (IOException ex) {
@@ -103,7 +110,6 @@ public class Client {
             String message = br.readLine();
 
 
-            System.out.println(message);
             return message;
 
         } catch (IOException ex) {

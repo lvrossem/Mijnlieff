@@ -47,9 +47,11 @@ public class MijnlieffGameController extends MijnlieffController {
                     field.setModel(board);
                     board.add(field, column + j, row + k);
                     field.setRow();
+                    field.setColumn();
                 }
             }
         }
+
 
         board.fireInvalidationEvent();
         board.setAlignment(Pos.CENTER);
@@ -59,15 +61,8 @@ public class MijnlieffGameController extends MijnlieffController {
         borderPane.setRight(blackside);
 
 
-        Scene test = new Scene(borderPane, 900, 700);
-        stage.setScene(test);
-        stage.show();
-
-
-
-
-
-
+        Scene game = new Scene(borderPane, 900, 700);
+        stage.setScene(game);
 
 
     }

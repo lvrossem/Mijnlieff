@@ -14,5 +14,6 @@
       <Label fx:id="noPlayer" layoutX="320.0" layoutY="108.0" text="Er zijn geen tegenstanders beschikbaar" textFill="#f50707" visible="false" />
       <Button layoutX="386.0" layoutY="187.0" mnemonicParsing="false" onAction="#enterQueue" text="Deelnemen" />
       <Button layoutX="506.0" layoutY="360.0" mnemonicParsing="false" onAction="#quit" text="Spel verlaten" />
+      <Label fx:id="fatalError" layoutX="409.0" layoutY="364.0" textFill="#ea0505" />
    </children>
 </AnchorPane>

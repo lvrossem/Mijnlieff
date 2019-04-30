@@ -35,82 +35,82 @@
          <children>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="0">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0"  fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="0">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="0">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="2">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.rowIndex="3">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
             <Field fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <image>
-                  <Image url="@img/red_square.png" />
+                  <Image url="@../img/red_square.png" />
                </image>
             </Field>
          </children>
