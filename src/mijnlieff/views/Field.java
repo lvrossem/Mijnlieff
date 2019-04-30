@@ -13,10 +13,9 @@ public class Field extends ImageView {
     private MijnlieffBoard model;
     private int row;
     private int column;
+    private Piece piece;
 
-    public Field() {
-        setOnMouseClicked(e -> {});
-    }
+
 
     public void setModel(MijnlieffBoard model) {
         this.model = model;
@@ -39,11 +38,15 @@ public class Field extends ImageView {
 
     }
 
+    public Piece getPiece() {
+        return piece;
+    }
+
     public void setAppearance() {
         Piece[][] pieces = model.getPieces();
-        Piece p = pieces[row][column];
-        if (p != null) {
-            setImage(new Image("/mijnlieff/img/" + p.getColor().getColorString() + p.getType().getUrl()));
+        piece = pieces[row][column];
+        if (piece != null) {
+            setImage(new Image("/mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));
         } else {
             setImage(new Image("/mijnlieff/img/red_square.png"));
         }

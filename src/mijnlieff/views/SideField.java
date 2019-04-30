@@ -12,6 +12,7 @@ public class SideField extends ImageView {
 
     private SidePieces model;
     private int index;
+    private Piece piece;
 
 
 
@@ -28,15 +29,19 @@ public class SideField extends ImageView {
         this.index = index;
     }
 
+    public Piece getPiece() {
+        return piece;
+    }
+
     public void invalidationEvent() {
         setAppearance();
     }
 
     public void setAppearance() {
-        ArrayList<Piece> pieces = model.getPieces();
+        piece = model.getPieces().get(index);
 
-        if (pieces.get(index) != null) {
-            setImage(new Image("mijnlieff/img/" + pieces.get(index).getColor().getColorString() + pieces.get(index).getType().getUrl()));
+        if (piece != null) {
+            setImage(new Image("mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));
         } else {
             setImage(null);
         }

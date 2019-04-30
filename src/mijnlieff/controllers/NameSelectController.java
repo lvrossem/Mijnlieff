@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import mijnlieff.controllers.MijnlieffController;
 import mijnlieff.server.Client;
 
+//companionclass van het naamselectiescherm
 public class NameSelectController extends MijnlieffController {
 
 

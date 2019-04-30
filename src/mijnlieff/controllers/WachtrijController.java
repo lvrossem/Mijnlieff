@@ -69,10 +69,28 @@ public class WachtrijController extends MijnlieffController {
 
     }
 
+    public void boardStateChanged(Observable o) {
+        if (waitTask.getState() == Worker.State.SUCCEEDED) {
+            Stage stage = (Stage) fatalError.getScene().getWindow();
+            MijnlieffGameController controller = new MijnlieffGameController(waitTask.getValue(), stage);
+        } else {
+            fatalError.setText("Er ging helaas iets mis...");
+        }
+    }
+
     public void challengeStateChanged(Observable o) {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             String serverAnswer = waitTask.getValue();
             System.out.println(serverAnswer);
+            if (serverAnswer.contains("F")) {
+                waitTask = new WaitForAnswerTask(client);
+                waitTask.stateProperty().addListener(this::challengeStateChanged);
+                new Thread(waitTask).start();
+            } else {
+                Scene next = changeScene("KeuzeScherm.fxml", 608, 837);
+                Stage stage = (Stage) fatalError.getScene().getWindow();
+                stage.setScene(next);
+            }
         } else if (waitTask.getState() == Worker.State.FAILED) {
             fatalError.setText("Er is een fout gebeurd...");
         }

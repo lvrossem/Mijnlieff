@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+//regelt de communicatie tussen server en speler
 public class Client {
 
     private Socket socket;
