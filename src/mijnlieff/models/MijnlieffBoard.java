@@ -2,7 +2,9 @@ package mijnlieff.models;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import mijnlieff.controllers.MijnlieffGameController;
 import mijnlieff.pieces.Color;
 import mijnlieff.pieces.PieceType;
 import mijnlieff.views.Field;
@@ -11,8 +13,10 @@ import mijnlieff.pieces.Piece;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//modelklasse die het spelbord voorstelt
 public class MijnlieffBoard extends GridPane {
 
+    //linkt elk symbool dat de server in viewermodus kan doorsturen aan het corresponderende stuktype
     private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
     static {
         typePerChar.put('o', PieceType.PULLER);
@@ -27,6 +31,7 @@ public class MijnlieffBoard extends GridPane {
     private ArrayList<Field> listeners;
     private ArrayList<String> codes;
     private int turn;
+    private MijnlieffGameController controller;
 
     public MijnlieffBoard() {
         pieces = new Piece[10][10];
@@ -36,6 +41,40 @@ public class MijnlieffBoard extends GridPane {
         codes = new ArrayList<>();
 
         turn = 0;
+
+        setOnMouseClicked(e -> mouseEntered(e));
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        for (Node n: getChildren()) {
+            System.out.println(((Field) n).getRow());
+        }
+
+
+    }
+
+    public void setModels() {
+        ObservableList<Node> children = getChildren();
+
+        int i = 0;
+        for (Node node: children) {
+
+            ((Field) node).setModel(this);
+            ((Field) node).setRow(i/4);
+            ((Field) node).setColumn(i%4);
+            i++;
+
+
+        }
+    }
+
+    public void setController(MijnlieffGameController controller) {
+        this.controller = controller;
+    }
+
+    public void addSelected(int row, int column) {
+        pieces[row][column] = controller.getSelected();
+        fireInvalidationEvent();
     }
 
     public void addCode(String code) {
@@ -46,19 +85,6 @@ public class MijnlieffBoard extends GridPane {
         return codes;
     }
 
-    public void setModels() {
-        ObservableList<Node> children = getChildren();
-
-
-        for (Node node: children) {
-
-            ((Field) node).setModel(this);
-
-            ((Field) node).setColumn();
-            ((Field) node).setRow();
-
-        }
-    }
 
     public void registerListener(Field listener) {
         listeners.add(listener);
@@ -92,23 +118,7 @@ public class MijnlieffBoard extends GridPane {
         }
     }
 
-    public static class Coordinate {
-        private int row;
-        private int column;
 
-        public Coordinate(int row, int column) {
-            this.row = row;
-            this.column = column;
-        }
-
-        public int getRow() {
-            return row;
-        }
-
-        public int getColumn() {
-            return column;
-        }
-    }
 
     public ArrayList<Coordinate> getFieldsInOrder() {
         return fieldsInOrder;

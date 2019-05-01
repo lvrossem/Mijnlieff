@@ -2,12 +2,10 @@ package mijnlieff.views;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import mijnlieff.models.MijnlieffModel;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.pieces.Piece;
 
-import java.util.ArrayList;
-
+//een view die een vakje op het spelbord voorstelt
 public class Field extends ImageView {
 
     private MijnlieffBoard model;
@@ -15,12 +13,9 @@ public class Field extends ImageView {
     private int column;
     private Piece piece;
 
-
-
     public void setModel(MijnlieffBoard model) {
         this.model = model;
         register();
-
 
     }
 
@@ -28,14 +23,18 @@ public class Field extends ImageView {
         model.registerListener(this);
     }
 
-    public void setRow() {
-        this.row = ((MijnlieffBoard) model).getRowIndex(this);
+    public void setRow(int row) {
+        this.row = row;
 
     }
 
-    public void setColumn() {
-        this.column = ((MijnlieffBoard) model).getColumnIndex(this);
+    public void setColumn(int column) {
+        this.column = column;
 
+    }
+
+    public int getRow() {
+        return row;
     }
 
     public Piece getPiece() {
@@ -45,6 +44,7 @@ public class Field extends ImageView {
     public void setAppearance() {
         Piece[][] pieces = model.getPieces();
         piece = pieces[row][column];
+        //stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
         if (piece != null) {
             setImage(new Image("/mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));
         } else {

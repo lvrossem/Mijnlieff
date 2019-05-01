@@ -103,21 +103,10 @@ public class Client {
     return null;
     }
 
-    public String checkName(String name) {
-        try {
+    public void checkName(String name) {
 
+        pw.println("I " + name);
 
-            pw.println("I " + name);
-            String message = br.readLine();
-
-
-            return message;
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return null;
     }
 
 

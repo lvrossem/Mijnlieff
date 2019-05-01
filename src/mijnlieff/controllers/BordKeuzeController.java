@@ -11,6 +11,7 @@ import mijnlieff.pieces.PieceType;
 
 import java.util.HashMap;
 
+//controller van het scherm waarmee je een bordconfiguratie kan kiezen
 public class BordKeuzeController extends MijnlieffController {
 
     public ListView<String> choices;
@@ -68,6 +69,7 @@ public class BordKeuzeController extends MijnlieffController {
 
     }
 
+    //maakt het spel aan als er een keuze gemaakt is
     public void pickShape() {
         if (choices.getSelectionModel().getSelectedItem() == null) {
             errorLabel.setVisible(true);

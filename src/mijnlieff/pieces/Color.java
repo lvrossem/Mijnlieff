@@ -1,5 +1,6 @@
 package mijnlieff.pieces;
 
+//stelt de kleur van een stuk voor
 public enum Color {
     WHITE("wit"), BLACK("zwart");
 

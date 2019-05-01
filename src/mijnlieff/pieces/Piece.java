@@ -1,5 +1,6 @@
 package mijnlieff.pieces;
 
+//stelt een pion van het spel voor
 public class Piece {
 
     private Color color;
@@ -8,8 +9,6 @@ public class Piece {
     public Piece(Color color, PieceType type) {
         this.color = color;
         this.type = type;
-
-
     }
 
     public Color getColor() {

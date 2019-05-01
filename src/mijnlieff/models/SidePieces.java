@@ -3,6 +3,7 @@ package mijnlieff.models;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import mijnlieff.controllers.MijnlieffGameController;
 import mijnlieff.views.SideField;
 import mijnlieff.pieces.Color;
 import mijnlieff.pieces.Piece;
@@ -11,9 +12,10 @@ import mijnlieff.pieces.PieceType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+//modelklasse die de kolommen aan de zijkant van het spelbord voorstelt
 public class SidePieces extends VBox {
 
+    //linkt elk stuktype met de plaats waar het staat in de kolom
     private static HashMap<PieceType, Integer> indexPerType = new HashMap<PieceType, Integer>();
     static {
         indexPerType.put(PieceType.TOREN, 0);
@@ -23,9 +25,10 @@ public class SidePieces extends VBox {
     }
 
     private Color color;
-
+    private Piece selected;
     private ArrayList<SideField> listeners;
     private ArrayList<Piece> pieces;
+    private MijnlieffGameController controller;
 
     public SidePieces() {
 
@@ -43,6 +46,7 @@ public class SidePieces extends VBox {
 
     }
 
+    //vult zichzelf op
     public void setPieces() {
         pieces.add(new Piece(color, PieceType.TOREN));
         pieces.add(new Piece(color, PieceType.TOREN));
@@ -53,6 +57,15 @@ public class SidePieces extends VBox {
         pieces.add(new Piece(color, PieceType.PULLER));
         pieces.add(new Piece(color, PieceType.PULLER));
         fireInvalidationEvent();
+    }
+
+    public void setSelected(Piece piece) {
+        controller.setSelected(piece);
+
+    }
+
+    public void setController(MijnlieffGameController controller) {
+        this.controller = controller;
     }
 
     public void registerListener(SideField listener) {
@@ -83,6 +96,7 @@ public class SidePieces extends VBox {
         }
     }
 
+    //verwijdert een image als er een stuk geplaatst wordt
     public void deletePieceImage(PieceType type) {
 
         if (pieces.get(indexPerType.get(type)) != null) {
@@ -97,7 +111,7 @@ public class SidePieces extends VBox {
     }
 
 
-
+    //voegt een nieuwe image toe als er een stap terug wordt gegaan in het spel
     public void addPieceImage(PieceType type) {
 
         if (pieces.get(indexPerType.get(type)) == null) {

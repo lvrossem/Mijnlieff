@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import mijnlieff.models.Coordinate;
 import mijnlieff.server.Client;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.models.SidePieces;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-
+//controllerklasse voor de viewerversie van mijnlieff (als het opstart zoals in deel 1)
 public class MijnlieffViewerController extends MijnlieffController {
 
 
@@ -104,8 +105,8 @@ public class MijnlieffViewerController extends MijnlieffController {
     public void back() {
         int turn = board.getTurn();
 
-        ArrayList<MijnlieffBoard.Coordinate> p = board.getFieldsInOrder();
-        MijnlieffBoard.Coordinate lastPlaced = p.get(p.size()-1);
+        ArrayList<Coordinate> p = board.getFieldsInOrder();
+        Coordinate lastPlaced = p.get(p.size()-1);
         int row = lastPlaced.getRow();
         int column = lastPlaced.getColumn();
         PieceType type = board.getPieces()[row][column].getType();

@@ -8,11 +8,13 @@ import mijnlieff.server.Client;
 
 import java.io.IOException;
 
+//abstracte superklasse van de controllers waarin de gemeenschappelijke methoden en velden staan
 public abstract class MijnlieffController {
 
     protected Client client;
 
     public void quit() {
+        client.closeConnection();
         Platform.exit();
     }
 

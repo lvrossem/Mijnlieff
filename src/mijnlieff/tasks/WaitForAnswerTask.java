@@ -5,6 +5,7 @@ import mijnlieff.server.Client;
 
 import java.io.IOException;
 
+//een task die wacht op een antwoord van de server als er een bericht naar verstuurd is
 public class WaitForAnswerTask extends Task<String> {
 
     private Client client;

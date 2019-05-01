@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
+import mijnlieff.controllers.MijnlieffGameController;
 import mijnlieff.controllers.MijnlieffViewerController;
 
 import javax.imageio.ImageIO;
@@ -20,6 +21,7 @@ public class Mijnlieff extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+
         List<String> args = getParameters().getRaw();
         primaryStage.setResizable(false);
         primaryStage.setTitle("Mijnlieff");
@@ -27,6 +29,7 @@ public class Mijnlieff extends Application {
         Parent root;
         Scene scene;
 
+        //kiest de juiste manier om op te starten adhv het aantal argumenten
         if (args.size() == 0) {
             root = FXMLLoader.load(getClass().getResource("fxml/ServerSelect.fxml"));
             scene = new Scene(root, 600.0, 350.0);
@@ -51,7 +54,14 @@ public class Mijnlieff extends Application {
         }
 
 
+        //MijnlieffGameController controller = new MijnlieffGameController("X 0 0 2 2 0 2 2 0", primaryStage);
+
+
     }
+
+
+
+
 
 
 

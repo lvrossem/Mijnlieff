@@ -3,13 +3,16 @@ package mijnlieff.controllers;
 import javafx.beans.Observable;
 import javafx.concurrent.Worker;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import mijnlieff.tasks.WaitForAnswerTask;
 
+import java.awt.*;
 import java.util.ArrayList;
 
+//controllerklasse voor het wachtrijscherm
 public class WachtrijController extends MijnlieffController {
 
     private ArrayList<String> opponents;
@@ -17,6 +20,9 @@ public class WachtrijController extends MijnlieffController {
     public Label nothingSelected;
     public Label noPlayer;
     public Label fatalError;
+    public Label waiting;
+    public Button challenge;
+    public Button refresh;
     private WaitForAnswerTask waitTask;
 
     // plaatst alle actieve spelers in de wachtrij
@@ -25,6 +31,7 @@ public class WachtrijController extends MijnlieffController {
         opponents = client.getOpponents();
         if (opponents.contains("+") && opponents.size() == 1) {
             noPlayer.setVisible(true);
+            nothingSelected.setVisible(false);
         } else {
             for (String opponent : opponents) {
                 if (!opponent.equals("+")) {
@@ -55,6 +62,7 @@ public class WachtrijController extends MijnlieffController {
             }
         } else {
             nothingSelected.setVisible(true);
+            noPlayer.setVisible(false);
         }
     }
 
@@ -66,9 +74,14 @@ public class WachtrijController extends MijnlieffController {
         waitTask = new WaitForAnswerTask(client);
         waitTask.stateProperty().addListener(this::challengeStateChanged);
         new Thread(waitTask).start();
-
+        waiting.setVisible(true);
+        challenge.setDisable(true);
+        refresh.setDisable(true);
+        nothingSelected.setVisible(false);
+        noPlayer.setVisible(false);
     }
 
+    //wordt uitgevoerd als de tegenstander een bord heeft gekozen
     public void boardStateChanged(Observable o) {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             Stage stage = (Stage) fatalError.getScene().getWindow();
@@ -78,6 +91,7 @@ public class WachtrijController extends MijnlieffController {
         }
     }
 
+    //wordt uitgevoerd als je wordt uitgedaagd
     public void challengeStateChanged(Observable o) {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             String serverAnswer = waitTask.getValue();
