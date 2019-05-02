@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="608.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mijnlieff.controllers.BordKeuzeController">
+   <children>
+      <ListView fx:id="choices" layoutX="465.0" prefHeight="608.0" prefWidth="371.0" />
+      <Label layoutX="101.0" layoutY="221.0" prefHeight="82.0" prefWidth="273.0" text="Kies een bordconfiguratie">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="confirm" layoutX="207.0" layoutY="291.0" mnemonicParsing="false" onAction="#pickShape" text="Bevestig" />
+      <Label fx:id="errorLabel" layoutX="154.0" layoutY="317.0" text="Kies eerst een bordconfiguratie" textFill="#f80808" visible="false" />
+      <Button layoutX="14.0" layoutY="569.0" mnemonicParsing="false" onAction="#quit" text="Spel Verlaten" />
+   </children>
+</AnchorPane>

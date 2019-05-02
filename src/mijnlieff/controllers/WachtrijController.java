@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import mijnlieff.pieces.Color;
 import mijnlieff.tasks.WaitForAnswerTask;
 import java.util.ArrayList;
 
@@ -49,19 +50,14 @@ public class WachtrijController extends MijnlieffController {
         String selected = listView.getSelectionModel().getSelectedItem();
         if (selected != null) {
             nothingSelected.setVisible(false);
-            String answer = client.challengePlayer(selected);
+            client.challengePlayer(selected);
 
-            if (answer.contains("T")) {
-                Scene next = changeScene("BordKeuzeController.fxml", 608, 837);
+            waitTask = new WaitForAnswerTask(client);
+            waitTask.stateProperty().addListener(this::challengeStateChanged);
+            new Thread(waitTask).start();
 
-                Stage primaryStage = (Stage) listView.getScene().getWindow();
 
-                primaryStage.setScene(next);
-            } else {
-                waitTask = new WaitForAnswerTask(client);
-                waitTask.stateProperty().addListener(this::boardStateChanged);
-                new Thread(waitTask).start();
-            }
+
         } else {
             nothingSelected.setVisible(true);
 
@@ -103,17 +99,19 @@ public class WachtrijController extends MijnlieffController {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             String serverAnswer = waitTask.getValue();
             System.out.println(serverAnswer);
-
-            if (serverAnswer.charAt(2) == 'F') {
-
+            if (serverAnswer.equals("-")) {
+                fatalError.setText("Deze speler is al bezet");
+            } else if (serverAnswer.charAt(2) == 'F') {
+                client.setColor(Color.WHITE);
                 waitTask = new WaitForAnswerTask(client);
-                waitTask.stateProperty().addListener(this::challengeStateChanged);
+                waitTask.stateProperty().addListener(this::boardStateChanged);
                 new Thread(waitTask).start();
-
             } else if (serverAnswer.charAt(2) == 'T'){
+                client.setColor(Color.BLACK);
                 Scene next = changeScene("KeuzeScherm.fxml", 608, 837);
                 Stage stage = (Stage) fatalError.getScene().getWindow();
                 stage.setScene(next);
+                client.setColor(Color.BLACK);
             }
         } else if (waitTask.getState() == Worker.State.FAILED) {
             fatalError.setText("Er is een fout gebeurd...");

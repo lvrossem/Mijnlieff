@@ -3,8 +3,11 @@ package mijnlieff.tasks;
 import javafx.concurrent.Task;
 import mijnlieff.server.Client;
 
+import java.io.IOException;
+import java.net.Socket;
+
 //een task die verbinding legt met de server
-public class ServerConnectionTask extends Task<Client> {
+public class ServerConnectionTask extends Task<Socket> {
 
     private String adres;
     private int poort;
@@ -16,14 +19,14 @@ public class ServerConnectionTask extends Task<Client> {
     }
 
     @Override
-    public Client call() throws Exception {
+    public Socket call() throws Exception {
 
-        Client client;
+        Socket socket;
         try {
 
-            client = new Client(adres, poort);
-            return client;
-        } catch (Exception ex) {
+            socket = new Socket(adres, poort);
+            return socket;
+        } catch (IOException ex) {
             throw new RuntimeException("Onverwachte onderbreking", ex);
         }
 

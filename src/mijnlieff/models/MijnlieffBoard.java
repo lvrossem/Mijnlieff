@@ -2,7 +2,6 @@ package mijnlieff.models;
 
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import mijnlieff.controllers.MijnlieffGameController;
 import mijnlieff.pieces.Color;
@@ -31,7 +30,7 @@ public class MijnlieffBoard extends GridPane {
     private ArrayList<String> codes;
     private int turn;
     private MijnlieffGameController controller;
-    private Coordinate lastPlaced;
+    private LastMoveData lastPlaced;
 
     public MijnlieffBoard() {
         pieces = new Piece[11][11];
@@ -57,9 +56,8 @@ public class MijnlieffBoard extends GridPane {
             ((Field) node).setRow(i/4);
             ((Field) node).setColumn(i%4);
             i++;
-
-
         }
+        fireInvalidationEvent();
     }
 
 
@@ -68,15 +66,76 @@ public class MijnlieffBoard extends GridPane {
         this.controller = controller;
     }
 
+    public boolean sameRowOrColumn(int row, int column) {
+        return lastPlaced.getRow() == row || lastPlaced.getColumn() == column;
+    }
+
+    public boolean notTouching(int row, int column) {
+        int lpc = lastPlaced.getColumn();
+        int lpr = lastPlaced.getRow();
+
+        return Math.abs(lpr-row) > 1 || Math.abs(lpc-column) > 1;
+    }
+
+    public boolean sameDiagonal(int row, int column) {
+        int lpc = lastPlaced.getColumn();
+        int lpr = lastPlaced.getRow();
+
+        return lpc - lpr == column-row || lpc + lpr == row + column;
+    }
+
     public void addSelected(int row, int column) {
 
-        if (controller.getSelected() != null) {
-            pieces[row][column] = controller.getSelected();
-            fireInvalidationEvent();
-            lastPlaced = new Coordinate(row, column);
-            controller.setSelectedNull();
-            turn++;
+        if (controller.getSelected() != null && pieces[row][column] == null) {
+            Piece p = controller.getSelected();
+            if (lastPlaced != null) {
+
+                if (lastPlaced.getType() == PieceType.TOREN) {
+                    if (sameRowOrColumn(row, column)) {
+                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        updateBoard(row, column, p);
+                    } else {
+                        System.out.println("Ongeldig");
+                    }
+
+                } else if (lastPlaced.getType() == PieceType.LOPER) {
+                    if (sameDiagonal(row, column)) {
+                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        updateBoard(row, column, p);
+                    } else {
+                        System.out.println("Ongeldig");
+                    }
+                } else if (lastPlaced.getType() == PieceType.PULLER) {
+                    if (!notTouching(row, column)) {
+                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        updateBoard(row, column, p);
+                    } else {
+                        System.out.println("Ongeldig");
+                    }
+                } else if (lastPlaced.getType() == PieceType.PUSHER) {
+                    if (notTouching(row, column)) {
+                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        updateBoard(row, column, p);
+                    } else {
+                        System.out.println("Ongeldig");
+                    }
+                }
+            } else {
+                pieces[row][column] = p;
+                lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                updateBoard(row, column, p);
+            }
+
+
+
         }
+    }
+
+    public void updateBoard(int row, int column, Piece p) {
+        pieces[row][column] = p;
+        fireInvalidationEvent();
+        controller.setSelectedNull();
+        turn++;
     }
 
     public void addCode(String code) {
@@ -103,10 +162,15 @@ public class MijnlieffBoard extends GridPane {
         int row = Character.getNumericValue(code.charAt(4));
         int column = Character.getNumericValue(code.charAt(6));
 
+        if (controller instanceof MijnlieffGameController) {
+            lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+        }
+
         Piece piece = new Piece(color, typePerChar.get(code.charAt(8)));
         pieces[row][column] = piece;
 
         fieldsInOrder.add(new Coordinate(row, column));
+        lastPlaced = new LastMoveData(row, column, piece.getType());
         fireInvalidationEvent();
         turn++;
     }
@@ -122,11 +186,7 @@ public class MijnlieffBoard extends GridPane {
         }
     }
 
-    public void setLastPlaced(int row, int column) {
-        lastPlaced = new Coordinate(row, column);
-    }
-
-    public Coordinate getLastPlaced() {
+    public LastMoveData getLastPlaced() {
         return lastPlaced;
     }
 
@@ -201,5 +261,30 @@ public class MijnlieffBoard extends GridPane {
 
 
         return points;
+    }
+
+    //Data-transfer object
+    public class LastMoveData {
+        private int row;
+        private int column;
+        private PieceType type;
+
+        public LastMoveData(int row, int column, PieceType type) {
+            this.column = column;
+            this.row = row;
+            this.type = type;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int getColumn() {
+            return column;
+        }
+
+        public PieceType getType() {
+            return type;
+        }
     }
 }

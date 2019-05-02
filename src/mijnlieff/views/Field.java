@@ -1,5 +1,6 @@
 package mijnlieff.views;
 
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import mijnlieff.models.MijnlieffBoard;
@@ -35,6 +36,10 @@ public class Field extends ImageView {
 
     public int getRow() {
         return row;
+    }
+
+    public int getColumn() {
+        return column;
     }
 
 

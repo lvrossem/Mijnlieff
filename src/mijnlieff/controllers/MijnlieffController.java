@@ -5,12 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import mijnlieff.server.Client;
+import mijnlieff.tasks.WaitForAnswerTask;
+
 import java.io.IOException;
 
 //abstracte superklasse van de controllers waarin de gemeenschappelijke methoden en velden staan
 public abstract class MijnlieffController {
 
     protected Client client;
+    protected WaitForAnswerTask waitTask;
 
     public void quit() {
         client.closeConnection();

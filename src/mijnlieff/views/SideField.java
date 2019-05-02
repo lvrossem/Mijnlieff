@@ -9,10 +9,10 @@ public class SideField extends ImageView {
 
     private SidePieces model;
     private int index;
-    private Piece piece;
+
 
     public SideField() {
-        setOnMouseClicked(e -> model.setSelected(this.getPiece()));
+        setOnMouseClicked(e -> model.setSelected(model.getPieces()[index]));
     }
 
     public void setModel(SidePieces model) {
@@ -28,16 +28,14 @@ public class SideField extends ImageView {
         this.index = index;
     }
 
-    public Piece getPiece() {
-        return piece;
-    }
+
 
     public void invalidationEvent() {
         setAppearance();
     }
 
     public void setAppearance() {
-        piece = model.getPieces().get(index);
+        Piece piece = model.getPieces()[index];
         //stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
         if (piece != null) {
             setImage(new Image("mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));

@@ -26,13 +26,13 @@ public class SidePieces extends VBox {
     private Color color;
     private Piece selected;
     private ArrayList<SideField> listeners;
-    private ArrayList<Piece> pieces;
+    private Piece[] pieces;
     private MijnlieffGameController controller;
 
     public SidePieces() {
 
         listeners = new ArrayList<>();
-        pieces = new ArrayList<>();
+        pieces = new Piece[8];
         for (int i = 0; i < 8; i++) {
             SideField sideField = new SideField();
             sideField.setFitHeight(78);
@@ -47,19 +47,20 @@ public class SidePieces extends VBox {
 
     //vult zichzelf op
     public void setPieces() {
-        pieces.add(new Piece(color, PieceType.TOREN));
-        pieces.add(new Piece(color, PieceType.TOREN));
-        pieces.add(new Piece(color, PieceType.LOPER));
-        pieces.add(new Piece(color, PieceType.LOPER));
-        pieces.add(new Piece(color, PieceType.PUSHER));
-        pieces.add(new Piece(color, PieceType.PUSHER));
-        pieces.add(new Piece(color, PieceType.PULLER));
-        pieces.add(new Piece(color, PieceType.PULLER));
+        pieces[0] = new Piece(color, PieceType.TOREN);
+        pieces[1] = new Piece(color, PieceType.TOREN);
+        pieces[2] = new Piece(color, PieceType.LOPER);
+        pieces[3] = new Piece(color, PieceType.LOPER);
+        pieces[4] = new Piece(color, PieceType.PUSHER);
+        pieces[5] = new Piece(color, PieceType.PUSHER);
+        pieces[6] = new Piece(color, PieceType.PULLER);
+        pieces[7] = new Piece(color, PieceType.PULLER);
         fireInvalidationEvent();
     }
 
     public void setSelected(Piece piece) {
         controller.setSelected(piece);
+        System.out.println(piece.getType().getUrl());
 
     }
 
@@ -76,7 +77,7 @@ public class SidePieces extends VBox {
         setPieces();
     }
 
-    public ArrayList<Piece> getPieces() {
+    public Piece[] getPieces() {
         return pieces;
     }
 
@@ -98,12 +99,12 @@ public class SidePieces extends VBox {
     //verwijdert een image als er een stuk geplaatst wordt
     public void deletePieceImage(PieceType type) {
 
-        if (pieces.get(indexPerType.get(type)) != null) {
+        if (pieces[indexPerType.get(type)] != null) {
 
-            pieces.set(indexPerType.get(type), null);
+            pieces[indexPerType.get(type)] = null;
         } else {
 
-            pieces.set(indexPerType.get(type) + 1, null);
+            pieces[indexPerType.get(type) + 1] = null;
         }
 
         fireInvalidationEvent();
@@ -113,12 +114,12 @@ public class SidePieces extends VBox {
     //voegt een nieuwe image toe als er een stap terug wordt gegaan in het spel
     public void addPieceImage(PieceType type) {
 
-        if (pieces.get(indexPerType.get(type)) == null) {
+        if (pieces[indexPerType.get(type)] == null) {
 
-            pieces.set(indexPerType.get(type), new Piece(color, type));
+            pieces[indexPerType.get(type)] = new Piece(color, type);
         } else {
 
-            pieces.set(indexPerType.get(type) + 1, new Piece(color, type));
+            pieces[indexPerType.get(type) + 1] = new Piece(color, type);
         }
 
         fireInvalidationEvent();

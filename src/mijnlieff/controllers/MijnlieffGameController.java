@@ -28,7 +28,7 @@ public class MijnlieffGameController extends MijnlieffController {
     public SidePieces blackSide;
     public Label waitingError;
     private Piece selected;
-    private WaitForAnswerTask waitTask;
+
 
     private static HashMap<PieceType, Character> charPerType = new HashMap<>();
     static {
@@ -66,10 +66,10 @@ public class MijnlieffGameController extends MijnlieffController {
         //maakt de speelvelden per blokjes van 4 aan
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
-                ImageView imageView = new ImageView();
-                imageView.setFitHeight(60);
-                imageView.setFitWidth(60);
-                board.add(imageView, i, j);
+                Field field = new Field();
+                field.setFitHeight(60);
+                field.setFitWidth(60);
+                board.add(field, i, j);
             }
         }
         for (int i = 0; i < 4; i++) {
@@ -103,21 +103,22 @@ public class MijnlieffGameController extends MijnlieffController {
         stage.setScene(game);
         stage.show();
 
-
-
-
     }
 
     public void setSelected(Piece piece) {
-        selected = piece;
+        if (piece.getColor() == client.getColor()) {
+            selected = piece;
+        }
     }
 
     public void setSelectedNull() {
-
+        PieceType type = selected.getType();
         if (board.getTurn() % 2 == 0) {
-            whiteSide.deletePieceImage(selected.getType());
+
+            whiteSide.deletePieceImage(type);
+
         } else {
-            blackSide.deletePieceImage(selected.getType());
+            blackSide.deletePieceImage(type);
         }
 
         selected = null;
@@ -126,8 +127,8 @@ public class MijnlieffGameController extends MijnlieffController {
     }
 
     public void handleNextMove() {
-        Coordinate c = board.getLastPlaced();
-        client.sendMove("X F " + c.getRow() + " " + c.getColumn() + " " + charPerType.get(board.getPieces()[c.getRow()][c.getColumn()]));
+        MijnlieffBoard.LastMoveData lm = board.getLastPlaced();
+        client.sendMove("X F " + lm.getRow() + " " + lm.getColumn() + " " + charPerType.get(board.getPieces()[lm.getRow()][lm.getColumn()]));
         waitingError.setText("Wachten op de zet van de tegenstander...");
         waitTask = new WaitForAnswerTask(client);
         waitTask.stateProperty().addListener(this::boardAnswerStateChanged);
@@ -145,7 +146,7 @@ public class MijnlieffGameController extends MijnlieffController {
             board.addPiece(waitTask.getValue());
             waitingError.setText(null);
         } else if (waitTask.getState() == Worker.State.FAILED) {
-            waitingError.setText("Er ging iet fout...");
+            waitingError.setText("Er ging iets fout...");
         }
     }
 

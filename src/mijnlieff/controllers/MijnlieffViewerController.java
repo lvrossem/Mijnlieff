@@ -1,12 +1,16 @@
 package mijnlieff.controllers;
 
 
+import javafx.beans.Observable;
+import javafx.concurrent.Worker;
 import javafx.scene.control.Button;
 import mijnlieff.models.Coordinate;
 import mijnlieff.server.Client;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.models.SidePieces;
 import mijnlieff.pieces.*;
+import mijnlieff.tasks.ServerConnectionTask;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,6 +27,7 @@ public class MijnlieffViewerController extends MijnlieffController {
     public SidePieces whiteSide;
     public SidePieces blackSide;
     private String configuration;
+    private ServerConnectionTask connectionTask;
 
     public void initialize() {
         whiteSide.setColor(Color.WHITE);
@@ -34,6 +39,7 @@ public class MijnlieffViewerController extends MijnlieffController {
         blackSide.setPieces();
         whiteSide.setModels();
         whiteSide.setPieces();
+        client = new Client();
     }
 
     //linkt alle karakters aan het corresponderende stuktype
@@ -45,16 +51,27 @@ public class MijnlieffViewerController extends MijnlieffController {
         typePerChar.put('X', PieceType.LOPER);
     }
 
-    public void viewerConnection(String server, int port) {
-        client = new Client(server, port);
 
-        String message = client.getNewMove();
-        while (message.contains("F")) {
-            board.addCode(message);
-            message = client.getNewMove();
-        }
-        board.addCode(message);
+    public void viewerConnection(String server, int port) {
+        connectionTask = new ServerConnectionTask(server, port);
+        connectionTask.stateProperty().addListener(this::connectionStateChanged);
+        new Thread(connectionTask).start();
+
+
     }
+
+    public void connectionStateChanged(Observable o) {
+        if (connectionTask.getState() == Worker.State.SUCCEEDED) {
+            client.setSocket(connectionTask.getValue());
+            String message = client.getNewMove();
+            while (message.contains("F")) {
+                board.addCode(message);
+                message = client.getNewMove();
+            }
+            board.addCode(message);
+        }
+    }
+
 
 
 

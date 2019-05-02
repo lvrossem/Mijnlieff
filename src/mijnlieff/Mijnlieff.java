@@ -31,11 +31,13 @@ public class Mijnlieff extends Application {
         Scene scene;
 
         //kiest de juiste manier om op te starten adhv het aantal argumenten
+
         if (args.size() == 0) {
             root = FXMLLoader.load(getClass().getResource("fxml/ServerSelect.fxml"));
             scene = new Scene(root, 600.0, 350.0);
             primaryStage.setScene(scene);
             primaryStage.show();
+
         } else {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/Mijnlieff.fxml"));
             root = loader.load();
@@ -53,6 +55,10 @@ public class Mijnlieff extends Application {
                 primaryStage.show();
             }
         }
+
+
+
+
 
 
 

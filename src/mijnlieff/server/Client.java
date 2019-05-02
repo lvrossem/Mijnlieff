@@ -1,5 +1,7 @@
 package mijnlieff.server;
 
+import mijnlieff.pieces.Color;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -11,25 +13,25 @@ public class Client {
     private Socket socket;
     private PrintWriter pw;
     private BufferedReader br;
+    private Color color;
 
-    public Client(String server, int poort) {
 
+
+    public BufferedReader getBr() {
+        return br;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
         try {
-            socket = new Socket(server, poort);
 
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             pw = new PrintWriter(socket.getOutputStream(), true);
 
-
         } catch (IOException ex) {
             ex.printStackTrace();
-
         }
-    }
-
-    public BufferedReader getBr() {
-        return br;
     }
 
     public void sendBoard(String board) {
@@ -41,15 +43,9 @@ public class Client {
 
     }
 
-    public String challengePlayer(String player) {
+    public void challengePlayer(String player) {
         pw.println("C " + player);
 
-        try {
-            return br.readLine();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-         return null;
     }
 
     public void closeConnection() {
@@ -104,6 +100,14 @@ public class Client {
 
         pw.println("I " + name);
 
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
 
