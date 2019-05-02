@@ -23,6 +23,5 @@ public class WaitForAnswerTask extends Task<String> {
         } catch (IOException ex) {
             throw new RuntimeException("Onverwachte onderbreking", ex);
         }
-
     }
 }

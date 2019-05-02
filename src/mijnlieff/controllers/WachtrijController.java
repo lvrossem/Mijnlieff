@@ -8,8 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import mijnlieff.tasks.WaitForAnswerTask;
-
-import java.awt.*;
 import java.util.ArrayList;
 
 //controllerklasse voor het wachtrijscherm
@@ -23,6 +21,7 @@ public class WachtrijController extends MijnlieffController {
     public Label waiting;
     public Button challenge;
     public Button refresh;
+    public Button queue;
     private WaitForAnswerTask waitTask;
 
     // plaatst alle actieve spelers in de wachtrij
@@ -40,6 +39,9 @@ public class WachtrijController extends MijnlieffController {
             }
             noPlayer.setVisible(false);
         }
+        nothingSelected.setVisible(false);
+        fatalError.setVisible(false);
+        waiting.setVisible(false);
     }
 
     //vraagt aan de client om de gekozen speler uit te dagen
@@ -62,8 +64,11 @@ public class WachtrijController extends MijnlieffController {
             }
         } else {
             nothingSelected.setVisible(true);
-            noPlayer.setVisible(false);
+
         }
+        noPlayer.setVisible(false);
+        fatalError.setVisible(false);
+        waiting.setVisible(false);
     }
 
 
@@ -79,6 +84,8 @@ public class WachtrijController extends MijnlieffController {
         refresh.setDisable(true);
         nothingSelected.setVisible(false);
         noPlayer.setVisible(false);
+        fatalError.setVisible(false);
+
     }
 
     //wordt uitgevoerd als de tegenstander een bord heeft gekozen
@@ -86,7 +93,7 @@ public class WachtrijController extends MijnlieffController {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             Stage stage = (Stage) fatalError.getScene().getWindow();
             MijnlieffGameController controller = new MijnlieffGameController(waitTask.getValue(), stage);
-        } else {
+        } else if (waitTask.getState() == Worker.State.FAILED) {
             fatalError.setText("Er ging helaas iets mis...");
         }
     }
@@ -96,11 +103,14 @@ public class WachtrijController extends MijnlieffController {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             String serverAnswer = waitTask.getValue();
             System.out.println(serverAnswer);
-            if (serverAnswer.contains("F")) {
+
+            if (serverAnswer.charAt(2) == 'F') {
+
                 waitTask = new WaitForAnswerTask(client);
                 waitTask.stateProperty().addListener(this::challengeStateChanged);
                 new Thread(waitTask).start();
-            } else {
+
+            } else if (serverAnswer.charAt(2) == 'T'){
                 Scene next = changeScene("KeuzeScherm.fxml", 608, 837);
                 Stage stage = (Stage) fatalError.getScene().getWindow();
                 stage.setScene(next);

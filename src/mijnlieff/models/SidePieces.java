@@ -1,6 +1,6 @@
 package mijnlieff.models;
 
-import javafx.collections.ObservableList;
+
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import mijnlieff.controllers.MijnlieffGameController;
@@ -8,7 +8,6 @@ import mijnlieff.views.SideField;
 import mijnlieff.pieces.Color;
 import mijnlieff.pieces.Piece;
 import mijnlieff.pieces.PieceType;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 

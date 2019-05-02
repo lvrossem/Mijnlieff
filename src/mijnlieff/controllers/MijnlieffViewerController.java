@@ -1,23 +1,12 @@
 package mijnlieff.controllers;
 
 
-
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
 import mijnlieff.models.Coordinate;
 import mijnlieff.server.Client;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.models.SidePieces;
 import mijnlieff.pieces.*;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 

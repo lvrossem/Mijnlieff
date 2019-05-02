@@ -12,7 +12,7 @@
       <Button fx:id="challenge" layoutX="98.0" layoutY="126.0" mnemonicParsing="false" onAction="#challengePlayer" prefHeight="26.0" prefWidth="126.0" text="Daag uit" />
       <Label fx:id="nothingSelected" layoutX="73.0" layoutY="152.0" text="Gelieve eerst een speler te kiezen" textFill="#f00303" visible="false" />
       <Label fx:id="noPlayer" layoutX="57.0" layoutY="102.0" text="Er zijn geen tegenstanders beschikbaar" textFill="#f50707" visible="false" />
-      <Button layoutX="98.0" layoutY="176.0" mnemonicParsing="false" onAction="#enterQueue" prefHeight="26.0" prefWidth="126.0" text="Deelnemen" />
+      <Button fx:id="queue" layoutX="98.0" layoutY="176.0" mnemonicParsing="false" onAction="#enterQueue" prefHeight="26.0" prefWidth="126.0" text="Deelnemen" />
       <Button layoutX="14.0" layoutY="360.0" mnemonicParsing="false" onAction="#quit" text="Spel verlaten" />
       <Label fx:id="fatalError" layoutX="125.0" layoutY="363.0" prefHeight="18.0" prefWidth="196.0" textFill="#ea0505" />
       <Label fx:id="waiting" layoutX="56.0" layoutY="202.0" text="Aan het wachten op een tegenstander..." textFill="#131313" visible="false" />

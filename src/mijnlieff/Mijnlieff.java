@@ -18,6 +18,7 @@ import java.util.List;
 
 public class Mijnlieff extends Application {
 
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -54,7 +55,8 @@ public class Mijnlieff extends Application {
         }
 
 
-        //MijnlieffGameController controller = new MijnlieffGameController("X 0 0 2 2 0 2 2 0", primaryStage);
+
+        //MijnlieffGameController controller = new MijnlieffGameController("X 0 0 2 1 4 3 6 8", primaryStage);
 
 
     }

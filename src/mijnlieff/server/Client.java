@@ -1,11 +1,9 @@
 package mijnlieff.server;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.List;
+
 
 //regelt de communicatie tussen server en speler
 public class Client {
@@ -13,9 +11,6 @@ public class Client {
     private Socket socket;
     private PrintWriter pw;
     private BufferedReader br;
-
-
-
 
     public Client(String server, int poort) {
 
@@ -87,8 +82,6 @@ public class Client {
 
     public String getNewMove() {
 
-
-
         try {
             String message = "";
 
@@ -101,6 +94,10 @@ public class Client {
             ex.printStackTrace();
         }
     return null;
+    }
+
+    public void sendMove(String move) {
+        pw.println(move);
     }
 
     public void checkName(String name) {

@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import mijnlieff.controllers.MijnlieffController;
-import mijnlieff.server.Client;
 import mijnlieff.tasks.WaitForAnswerTask;
 
 //companionclass van het naamselectiescherm

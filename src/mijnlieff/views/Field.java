@@ -11,11 +11,11 @@ public class Field extends ImageView {
     private MijnlieffBoard model;
     private int row;
     private int column;
-    private Piece piece;
 
     public void setModel(MijnlieffBoard model) {
         this.model = model;
         register();
+        setOnMouseClicked(e -> model.addSelected(row, column));
 
     }
 
@@ -37,18 +37,16 @@ public class Field extends ImageView {
         return row;
     }
 
-    public Piece getPiece() {
-        return piece;
-    }
+
 
     public void setAppearance() {
         Piece[][] pieces = model.getPieces();
-        piece = pieces[row][column];
+        Piece piece = pieces[row][column];
         //stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
         if (piece != null) {
             setImage(new Image("/mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));
         } else {
-            setImage(new Image("/mijnlieff/img/red_square.png"));
+            setImage(new Image("/mijnlieff/img/empty_square.jpg"));
         }
     }
 

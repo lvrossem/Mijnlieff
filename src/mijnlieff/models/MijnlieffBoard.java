@@ -9,7 +9,6 @@ import mijnlieff.pieces.Color;
 import mijnlieff.pieces.PieceType;
 import mijnlieff.views.Field;
 import mijnlieff.pieces.Piece;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -32,9 +31,10 @@ public class MijnlieffBoard extends GridPane {
     private ArrayList<String> codes;
     private int turn;
     private MijnlieffGameController controller;
+    private Coordinate lastPlaced;
 
     public MijnlieffBoard() {
-        pieces = new Piece[10][10];
+        pieces = new Piece[11][11];
 
         fieldsInOrder = new ArrayList<>();
         listeners = new ArrayList<>();
@@ -42,16 +42,10 @@ public class MijnlieffBoard extends GridPane {
 
         turn = 0;
 
-        setOnMouseClicked(e -> mouseEntered(e));
-    }
-
-    public void mouseEntered(MouseEvent e) {
-        for (Node n: getChildren()) {
-            System.out.println(((Field) n).getRow());
-        }
-
 
     }
+
+
 
     public void setModels() {
         ObservableList<Node> children = getChildren();
@@ -68,13 +62,21 @@ public class MijnlieffBoard extends GridPane {
         }
     }
 
+
+
     public void setController(MijnlieffGameController controller) {
         this.controller = controller;
     }
 
     public void addSelected(int row, int column) {
-        pieces[row][column] = controller.getSelected();
-        fireInvalidationEvent();
+
+        if (controller.getSelected() != null) {
+            pieces[row][column] = controller.getSelected();
+            fireInvalidationEvent();
+            lastPlaced = new Coordinate(row, column);
+            controller.setSelectedNull();
+            turn++;
+        }
     }
 
     public void addCode(String code) {
@@ -89,6 +91,8 @@ public class MijnlieffBoard extends GridPane {
     public void registerListener(Field listener) {
         listeners.add(listener);
     }
+
+
 
     public void addPiece(String code) {
         Color color = Color.BLACK;
@@ -117,6 +121,15 @@ public class MijnlieffBoard extends GridPane {
 
         }
     }
+
+    public void setLastPlaced(int row, int column) {
+        lastPlaced = new Coordinate(row, column);
+    }
+
+    public Coordinate getLastPlaced() {
+        return lastPlaced;
+    }
+
 
 
 

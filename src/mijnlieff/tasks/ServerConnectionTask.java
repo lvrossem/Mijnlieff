@@ -3,8 +3,6 @@ package mijnlieff.tasks;
 import javafx.concurrent.Task;
 import mijnlieff.server.Client;
 
-import java.io.IOException;
-
 //een task die verbinding legt met de server
 public class ServerConnectionTask extends Task<Client> {
 
@@ -17,6 +15,7 @@ public class ServerConnectionTask extends Task<Client> {
 
     }
 
+    @Override
     public Client call() throws Exception {
 
         Client client;

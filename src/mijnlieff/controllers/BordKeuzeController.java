@@ -3,12 +3,7 @@ package mijnlieff.controllers;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import mijnlieff.controllers.MijnlieffController;
-
 import javafx.scene.control.ListView;
-import mijnlieff.controllers.MijnlieffGameController;
-import mijnlieff.pieces.PieceType;
-
 import java.util.HashMap;
 
 //controller van het scherm waarmee je een bordconfiguratie kan kiezen

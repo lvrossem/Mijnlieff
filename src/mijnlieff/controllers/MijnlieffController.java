@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import mijnlieff.server.Client;
-
 import java.io.IOException;
 
 //abstracte superklasse van de controllers waarin de gemeenschappelijke methoden en velden staan
