@@ -62,6 +62,7 @@ public class Mijnlieff extends Application {
 
 
 
+
         //MijnlieffGameController controller = new MijnlieffGameController("X 0 0 2 1 4 3 6 8", primaryStage);
 
 

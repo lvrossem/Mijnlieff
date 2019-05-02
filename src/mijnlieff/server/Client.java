@@ -43,8 +43,14 @@ public class Client {
 
     }
 
-    public void challengePlayer(String player) {
+    public String challengePlayer(String player) {
         pw.println("C " + player);
+        try {
+            return br.readLine();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
 
     }
 

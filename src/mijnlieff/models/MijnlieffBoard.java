@@ -30,7 +30,7 @@ public class MijnlieffBoard extends GridPane {
     private ArrayList<String> codes;
     private int turn;
     private MijnlieffGameController controller;
-    private LastMoveData lastPlaced;
+    private MoveData lastPlaced;
 
     public MijnlieffBoard() {
         pieces = new Piece[11][11];
@@ -40,6 +40,8 @@ public class MijnlieffBoard extends GridPane {
         codes = new ArrayList<>();
 
         turn = 0;
+
+        setOnMouseClicked(e -> getScore());
 
 
     }
@@ -92,7 +94,7 @@ public class MijnlieffBoard extends GridPane {
 
                 if (lastPlaced.getType() == PieceType.TOREN) {
                     if (sameRowOrColumn(row, column)) {
-                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        lastPlaced = new MoveData(row, column, p.getType());
                         updateBoard(row, column, p);
                     } else {
                         System.out.println("Ongeldig");
@@ -100,21 +102,21 @@ public class MijnlieffBoard extends GridPane {
 
                 } else if (lastPlaced.getType() == PieceType.LOPER) {
                     if (sameDiagonal(row, column)) {
-                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        lastPlaced = new MoveData(row, column, p.getType());
                         updateBoard(row, column, p);
                     } else {
                         System.out.println("Ongeldig");
                     }
                 } else if (lastPlaced.getType() == PieceType.PULLER) {
                     if (!notTouching(row, column)) {
-                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        lastPlaced = new MoveData(row, column, p.getType());
                         updateBoard(row, column, p);
                     } else {
                         System.out.println("Ongeldig");
                     }
                 } else if (lastPlaced.getType() == PieceType.PUSHER) {
                     if (notTouching(row, column)) {
-                        lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                        lastPlaced = new MoveData(row, column, p.getType());
                         updateBoard(row, column, p);
                     } else {
                         System.out.println("Ongeldig");
@@ -122,7 +124,7 @@ public class MijnlieffBoard extends GridPane {
                 }
             } else {
                 pieces[row][column] = p;
-                lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+                lastPlaced = new MoveData(row, column, p.getType());
                 updateBoard(row, column, p);
             }
 
@@ -163,14 +165,14 @@ public class MijnlieffBoard extends GridPane {
         int column = Character.getNumericValue(code.charAt(6));
 
         if (controller instanceof MijnlieffGameController) {
-            lastPlaced = new LastMoveData(row, column, pieces[row][column].getType());
+            lastPlaced = new MoveData(row, column, pieces[row][column].getType());
         }
 
         Piece piece = new Piece(color, typePerChar.get(code.charAt(8)));
         pieces[row][column] = piece;
 
         fieldsInOrder.add(new Coordinate(row, column));
-        lastPlaced = new LastMoveData(row, column, piece.getType());
+        lastPlaced = new MoveData(row, column, piece.getType());
         fireInvalidationEvent();
         turn++;
     }
@@ -186,7 +188,7 @@ public class MijnlieffBoard extends GridPane {
         }
     }
 
-    public LastMoveData getLastPlaced() {
+    public MoveData getLastPlaced() {
         return lastPlaced;
     }
 
@@ -209,14 +211,14 @@ public class MijnlieffBoard extends GridPane {
         turn--;
     }
 
-    public int[] getScore() {
+    public void getScore() {
         int[] points = new int[2];
 
         //telt de punten adhv de rijen
-        for (int i = 0; i<10; i++) {
+        for (int i = 0; i<11; i++) {
             int white = 0;
             int black = 0;
-            for (int j = 0; j<10; j++) {
+            for (int j = 0; j<11; j++) {
                 Piece piece = pieces[i][j];
                 if (piece != null) {
                     if (piece.getColor() == Color.WHITE) {
@@ -238,7 +240,7 @@ public class MijnlieffBoard extends GridPane {
             white = 0;
             black = 0;
 
-            for (int j = 0; j<10; j++) {
+            for (int j = 0; j<11; j++) {
                 Piece piece = pieces[j][i];
                 if (piece != null) {
                     if (piece.getColor() == Color.WHITE) {
@@ -258,33 +260,12 @@ public class MijnlieffBoard extends GridPane {
             }
 
         }
+        System.out.println(points[0]);
+        System.out.println(points[1]);
 
 
-        return points;
     }
 
-    //Data-transfer object
-    public class LastMoveData {
-        private int row;
-        private int column;
-        private PieceType type;
 
-        public LastMoveData(int row, int column, PieceType type) {
-            this.column = column;
-            this.row = row;
-            this.type = type;
-        }
 
-        public int getRow() {
-            return row;
-        }
-
-        public int getColumn() {
-            return column;
-        }
-
-        public PieceType getType() {
-            return type;
-        }
-    }
 }

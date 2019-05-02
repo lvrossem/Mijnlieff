@@ -4,12 +4,14 @@ import javafx.beans.Observable;
 import javafx.concurrent.Worker;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import mijnlieff.models.Coordinate;
 import mijnlieff.models.MijnlieffBoard;
+import mijnlieff.models.MoveData;
 import mijnlieff.models.SidePieces;
 import mijnlieff.pieces.Color;
 import mijnlieff.pieces.Piece;
@@ -27,6 +29,7 @@ public class MijnlieffGameController extends MijnlieffController {
     public SidePieces whiteSide;
     public SidePieces blackSide;
     public Label waitingError;
+    public Button pointButton;
     private Piece selected;
 
 
@@ -67,8 +70,8 @@ public class MijnlieffGameController extends MijnlieffController {
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
                 Field field = new Field();
-                field.setFitHeight(60);
-                field.setFitWidth(60);
+                field.setFitHeight(67);
+                field.setFitWidth(67);
                 board.add(field, i, j);
             }
         }
@@ -103,13 +106,21 @@ public class MijnlieffGameController extends MijnlieffController {
         stage.setScene(game);
         stage.show();
 
+        if (client.getColor() == Color.BLACK) {
+            handleNextMove();
+        } else {
+            waitingError.setText("Het is jouw beurt");
+        }
+
     }
 
+
     public void setSelected(Piece piece) {
-        if (piece.getColor() == client.getColor()) {
-            selected = piece;
-        }
+
+        selected = piece;
+
     }
+
 
     public void setSelectedNull() {
         PieceType type = selected.getType();
@@ -122,19 +133,17 @@ public class MijnlieffGameController extends MijnlieffController {
         }
 
         selected = null;
+        MoveData md = board.getLastPlaced();
+        client.sendMove("X F " + md.getRow() + " " + md.getColumn() + " " + charPerType.get(board.getPieces()[md.getRow()][md.getColumn()]));
 
         handleNextMove();
     }
 
     public void handleNextMove() {
-        MijnlieffBoard.LastMoveData lm = board.getLastPlaced();
-        client.sendMove("X F " + lm.getRow() + " " + lm.getColumn() + " " + charPerType.get(board.getPieces()[lm.getRow()][lm.getColumn()]));
         waitingError.setText("Wachten op de zet van de tegenstander...");
         waitTask = new WaitForAnswerTask(client);
         waitTask.stateProperty().addListener(this::boardAnswerStateChanged);
         new Thread(waitTask).start();
-
-
     }
 
     public Piece getSelected() {

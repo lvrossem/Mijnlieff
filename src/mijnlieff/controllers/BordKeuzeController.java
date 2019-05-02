@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
+import mijnlieff.pieces.Color;
+
 import java.util.HashMap;
 
 //controller van het scherm waarmee je een bordconfiguratie kan kiezen
@@ -60,12 +62,11 @@ public class BordKeuzeController extends MijnlieffController {
                 "4       X X     \n" +
                 "5       X X      ");
 
-
-
     }
 
     //maakt het spel aan als er een keuze gemaakt is
     public void pickShape() {
+        client.setColor(Color.BLACK);
         if (choices.getSelectionModel().getSelectedItem() == null) {
             errorLabel.setVisible(true);
         } else {

@@ -25,6 +25,9 @@ public class NameSelectController extends MijnlieffController {
         String name = nameField.getText();
         if (name.isEmpty()) {
             errorLabel.setText("Gelieve eerst een naam in te vullen");
+
+        } else if (name.contains(" ")) {
+            errorLabel.setText("De naam mag geen spaties bevatten");
         } else {
 
             client.checkName(name);
