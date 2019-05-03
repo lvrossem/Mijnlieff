@@ -70,6 +70,9 @@ public class SidePieces extends VBox {
 
     public void setController(MijnlieffGameController controller) {
         this.controller = controller;
+        for (Node node: getChildren()) {
+            ((SideField) node).setModel(this);
+        }
     }
 
     public void registerListener(SideField listener) {

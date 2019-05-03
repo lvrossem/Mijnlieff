@@ -9,7 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
+import mijnlieff.controllers.MijnlieffGameController;
 import mijnlieff.controllers.MijnlieffViewerController;
+import mijnlieff.server.Client;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -55,17 +57,6 @@ public class Mijnlieff extends Application {
                 primaryStage.show();
             }
         }
-
-
-
-
-
-
-
-
-
-        //MijnlieffGameController controller = new MijnlieffGameController("X 0 0 2 1 4 3 6 8", primaryStage);
-
 
     }
 

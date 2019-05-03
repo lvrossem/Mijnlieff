@@ -102,30 +102,21 @@ public class MijnlieffBoard extends GridPane {
                         if (sameRowOrColumn(row, column)) {
                             lastPlaced = new MoveData(row, column, p.getType());
                             updateBoard(row, column, p);
-                        } else {
-                            System.out.println("Ongeldig");
                         }
-
                     } else if (lastPlaced.getType() == PieceType.LOPER) {
                         if (sameDiagonal(row, column)) {
                             lastPlaced = new MoveData(row, column, p.getType());
                             updateBoard(row, column, p);
-                        } else {
-                            System.out.println("Ongeldig");
                         }
                     } else if (lastPlaced.getType() == PieceType.PULLER) {
                         if (!notTouching(row, column)) {
                             lastPlaced = new MoveData(row, column, p.getType());
                             updateBoard(row, column, p);
-                        } else {
-                            System.out.println("Ongeldig");
                         }
                     } else if (lastPlaced.getType() == PieceType.PUSHER) {
                         if (notTouching(row, column)) {
                             lastPlaced = new MoveData(row, column, p.getType());
                             updateBoard(row, column, p);
-                        } else {
-                            System.out.println("Ongeldig");
                         }
                     }
                 } else {
