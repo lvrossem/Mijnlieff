@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
-import mijnlieff.controllers.MijnlieffGameController;
 import mijnlieff.controllers.MijnlieffViewerController;
 
 import javax.imageio.ImageIO;
@@ -44,7 +43,7 @@ public class Mijnlieff extends Application {
             scene = new Scene(root, 936.0, 712.0);
             MijnlieffViewerController controller = loader.getController();
             controller.viewerConnection(args.get(0), Integer.parseInt(args.get(1)));
-            primaryStage.setScene(scene);
+
             if (args.size() == 3) {
                 controller.end();
                 WritableImage image = scene.snapshot(null);
@@ -52,9 +51,11 @@ public class Mijnlieff extends Application {
                 ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", out);
                 Platform.exit();
             } else {
+                primaryStage.setScene(scene);
                 primaryStage.show();
             }
         }
+
 
 
 

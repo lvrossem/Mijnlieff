@@ -2,6 +2,7 @@ package mijnlieff.views;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import mijnlieff.controllers.MijnlieffGameController;
 import mijnlieff.models.SidePieces;
 import mijnlieff.pieces.Piece;
 
@@ -11,13 +12,14 @@ public class SideField extends ImageView {
     private int index;
 
 
-    public SideField() {
-        setOnMouseClicked(e -> model.setSelected(model.getPieces()[index]));
-    }
+
 
     public void setModel(SidePieces model) {
         this.model = model;
         register();
+        if (model.getController() != null) {
+            setOnMouseClicked(e -> model.setSelected(model.getPieces()[index]));
+        }
     }
 
     public void register() {

@@ -41,9 +41,10 @@ public class MijnlieffBoard extends GridPane {
 
         turn = 0;
 
-        setOnMouseClicked(e -> getScore());
+    }
 
-
+    public HashMap<Character, PieceType> getTypePerChar() {
+        return typePerChar;
     }
 
 
@@ -86,50 +87,53 @@ public class MijnlieffBoard extends GridPane {
         return lpc - lpr == column-row || lpc + lpr == row + column;
     }
 
+    public MijnlieffGameController getController() {
+        return controller;
+    }
+
     public void addSelected(int row, int column) {
 
-        if (controller.getSelected() != null && pieces[row][column] == null) {
-            Piece p = controller.getSelected();
-            if (lastPlaced != null) {
+        if (controller.getSelected() != null) {
+            if (pieces[row][column] == null){
+                Piece p = controller.getSelected();
+                if (lastPlaced != null) {
 
-                if (lastPlaced.getType() == PieceType.TOREN) {
-                    if (sameRowOrColumn(row, column)) {
-                        lastPlaced = new MoveData(row, column, p.getType());
-                        updateBoard(row, column, p);
-                    } else {
-                        System.out.println("Ongeldig");
-                    }
+                    if (lastPlaced.getType() == PieceType.TOREN) {
+                        if (sameRowOrColumn(row, column)) {
+                            lastPlaced = new MoveData(row, column, p.getType());
+                            updateBoard(row, column, p);
+                        } else {
+                            System.out.println("Ongeldig");
+                        }
 
-                } else if (lastPlaced.getType() == PieceType.LOPER) {
-                    if (sameDiagonal(row, column)) {
-                        lastPlaced = new MoveData(row, column, p.getType());
-                        updateBoard(row, column, p);
-                    } else {
-                        System.out.println("Ongeldig");
+                    } else if (lastPlaced.getType() == PieceType.LOPER) {
+                        if (sameDiagonal(row, column)) {
+                            lastPlaced = new MoveData(row, column, p.getType());
+                            updateBoard(row, column, p);
+                        } else {
+                            System.out.println("Ongeldig");
+                        }
+                    } else if (lastPlaced.getType() == PieceType.PULLER) {
+                        if (!notTouching(row, column)) {
+                            lastPlaced = new MoveData(row, column, p.getType());
+                            updateBoard(row, column, p);
+                        } else {
+                            System.out.println("Ongeldig");
+                        }
+                    } else if (lastPlaced.getType() == PieceType.PUSHER) {
+                        if (notTouching(row, column)) {
+                            lastPlaced = new MoveData(row, column, p.getType());
+                            updateBoard(row, column, p);
+                        } else {
+                            System.out.println("Ongeldig");
+                        }
                     }
-                } else if (lastPlaced.getType() == PieceType.PULLER) {
-                    if (!notTouching(row, column)) {
-                        lastPlaced = new MoveData(row, column, p.getType());
-                        updateBoard(row, column, p);
-                    } else {
-                        System.out.println("Ongeldig");
-                    }
-                } else if (lastPlaced.getType() == PieceType.PUSHER) {
-                    if (notTouching(row, column)) {
-                        lastPlaced = new MoveData(row, column, p.getType());
-                        updateBoard(row, column, p);
-                    } else {
-                        System.out.println("Ongeldig");
-                    }
+                } else {
+                    pieces[row][column] = p;
+                    lastPlaced = new MoveData(row, column, p.getType());
+                    updateBoard(row, column, p);
                 }
-            } else {
-                pieces[row][column] = p;
-                lastPlaced = new MoveData(row, column, p.getType());
-                updateBoard(row, column, p);
             }
-
-
-
         }
     }
 
@@ -138,6 +142,10 @@ public class MijnlieffBoard extends GridPane {
         fireInvalidationEvent();
         controller.setSelectedNull();
         turn++;
+    }
+
+    public void setLastPlaced(MoveData md) {
+        lastPlaced = md;
     }
 
     public void addCode(String code) {
@@ -155,6 +163,7 @@ public class MijnlieffBoard extends GridPane {
 
 
 
+
     public void addPiece(String code) {
         Color color = Color.BLACK;
         if (turn % 2 == 0) {
@@ -164,12 +173,12 @@ public class MijnlieffBoard extends GridPane {
         int row = Character.getNumericValue(code.charAt(4));
         int column = Character.getNumericValue(code.charAt(6));
 
-        if (controller instanceof MijnlieffGameController) {
-            lastPlaced = new MoveData(row, column, pieces[row][column].getType());
-        }
 
         Piece piece = new Piece(color, typePerChar.get(code.charAt(8)));
         pieces[row][column] = piece;
+        if (controller instanceof MijnlieffGameController) {
+            lastPlaced = new MoveData(row, column, pieces[row][column].getType());
+        }
 
         fieldsInOrder.add(new Coordinate(row, column));
         lastPlaced = new MoveData(row, column, piece.getType());
@@ -192,9 +201,6 @@ public class MijnlieffBoard extends GridPane {
         return lastPlaced;
     }
 
-
-
-
     public ArrayList<Coordinate> getFieldsInOrder() {
         return fieldsInOrder;
     }
@@ -211,7 +217,7 @@ public class MijnlieffBoard extends GridPane {
         turn--;
     }
 
-    public void getScore() {
+    public int[] getScore() {
         int[] points = new int[2];
 
         //telt de punten adhv de rijen
@@ -260,8 +266,7 @@ public class MijnlieffBoard extends GridPane {
             }
 
         }
-        System.out.println(points[0]);
-        System.out.println(points[1]);
+        return points;
 
 
     }

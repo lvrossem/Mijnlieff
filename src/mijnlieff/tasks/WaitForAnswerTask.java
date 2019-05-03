@@ -18,7 +18,7 @@ public class WaitForAnswerTask extends Task<String> {
     public String call() throws Exception {
         try {
             String answer = client.getBr().readLine();
-            System.out.println(answer);
+
             return answer;
         } catch (IOException ex) {
             throw new RuntimeException("Onverwachte onderbreking", ex);

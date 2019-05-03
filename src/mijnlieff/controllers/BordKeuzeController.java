@@ -70,11 +70,13 @@ public class BordKeuzeController extends MijnlieffController {
         if (choices.getSelectionModel().getSelectedItem() == null) {
             errorLabel.setVisible(true);
         } else {
+
             errorLabel.setVisible(false);
             String configuration = bordPerIndex.get(choices.getSelectionModel().getSelectedIndex());
             Stage stage = (Stage) errorLabel.getScene().getWindow();
 
-            MijnlieffGameController controller = new MijnlieffGameController(configuration, stage);
+            MijnlieffGameController mijnlieffGameController = new MijnlieffGameController(configuration, stage, client);
+
             client.sendBoard(configuration);
 
         }

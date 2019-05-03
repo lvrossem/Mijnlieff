@@ -6,16 +6,15 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import mijnlieff.models.Coordinate;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.models.MoveData;
 import mijnlieff.models.SidePieces;
 import mijnlieff.pieces.Color;
 import mijnlieff.pieces.Piece;
 import mijnlieff.pieces.PieceType;
+import mijnlieff.server.Client;
 import mijnlieff.tasks.WaitForAnswerTask;
 import mijnlieff.views.Field;
 
@@ -43,8 +42,9 @@ public class MijnlieffGameController extends MijnlieffController {
 
 
     //stelt het bord op adhv de stringvorm van de bordconfiguratie
-    public MijnlieffGameController(String configuration, Stage stage) {
+    public MijnlieffGameController(String configuration, Stage stage, Client client) {
         board = new MijnlieffBoard();
+        this.client = client;
 
 
         borderPane = new BorderPane();
@@ -99,18 +99,20 @@ public class MijnlieffGameController extends MijnlieffController {
         borderPane.setCenter(board);
         borderPane.setLeft(whiteSide);
         borderPane.setRight(blackSide);
-        borderPane.setBottom(waitingError);
+        borderPane.setTop(waitingError);
 
 
         Scene game = new Scene(borderPane, 900, 700);
         stage.setScene(game);
         stage.show();
 
+
         if (client.getColor() == Color.BLACK) {
             handleNextMove();
         } else {
             waitingError.setText("Het is jouw beurt");
         }
+
 
     }
 
@@ -152,7 +154,9 @@ public class MijnlieffGameController extends MijnlieffController {
 
     public void boardAnswerStateChanged(Observable o) {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
-            board.addPiece(waitTask.getValue());
+            String move = waitTask.getValue();
+            board.addPiece(move);
+            board.setLastPlaced(new MoveData(move.charAt(4), move.charAt(6), board.getTypePerChar().get(move.charAt(8))));
             waitingError.setText(null);
         } else if (waitTask.getState() == Worker.State.FAILED) {
             waitingError.setText("Er ging iets fout...");

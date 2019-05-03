@@ -99,7 +99,9 @@ public class WachtrijController extends MijnlieffController {
     public void boardStateChanged(Observable o) {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             Stage stage = (Stage) fatalError.getScene().getWindow();
-            MijnlieffGameController controller = new MijnlieffGameController(waitTask.getValue(), stage);
+            client.setColor(Color.WHITE);
+            MijnlieffGameController mijnlieffGameController = new MijnlieffGameController(waitTask.getValue(), stage, client);
+
         } else if (waitTask.getState() == Worker.State.FAILED) {
             fatalError.setText("Er ging helaas iets mis...");
         }
@@ -109,15 +111,11 @@ public class WachtrijController extends MijnlieffController {
     public void challengeStateChanged(Observable o) {
         if (waitTask.getState() == Worker.State.SUCCEEDED) {
             String serverAnswer = waitTask.getValue();
-            System.out.println(serverAnswer);
+
             handleAnswer(serverAnswer);
 
         } else if (waitTask.getState() == Worker.State.FAILED) {
-            fatalError.setText("Er is een fout gebeurd...");
+            fatalError.setText("Er ging helaas iets mis");
         }
     }
-
-
-
-
 }

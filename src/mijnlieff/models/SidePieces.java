@@ -58,6 +58,10 @@ public class SidePieces extends VBox {
         fireInvalidationEvent();
     }
 
+    public MijnlieffGameController getController() {
+        return controller;
+    }
+
     public void setSelected(Piece piece) {
         controller.setSelected(piece);
         System.out.println(piece.getType().getUrl());

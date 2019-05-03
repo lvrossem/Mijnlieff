@@ -16,7 +16,9 @@ public class Field extends ImageView {
     public void setModel(MijnlieffBoard model) {
         this.model = model;
         register();
-        setOnMouseClicked(e -> model.addSelected(row, column));
+        if (model.getController() != null) {
+            setOnMouseClicked(e -> model.addSelected(row, column));
+        }
 
     }
 
@@ -45,8 +47,8 @@ public class Field extends ImageView {
 
 
     public void setAppearance() {
-        Piece[][] pieces = model.getPieces();
-        Piece piece = pieces[row][column];
+        Piece piece = model.getPieces()[row][column];
+
         //stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
         if (piece != null) {
             setImage(new Image("/mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));

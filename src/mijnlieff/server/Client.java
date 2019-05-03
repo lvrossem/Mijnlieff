@@ -8,11 +8,9 @@ import java.util.ArrayList;
 
 
 //regelt de communicatie tussen server en speler
-public class Client {
+public class Client extends MijnlieffClient {
 
-    private Socket socket;
-    private PrintWriter pw;
-    private BufferedReader br;
+
     private Color color;
 
 
@@ -54,11 +52,7 @@ public class Client {
 
     }
 
-    public void closeConnection() {
 
-        pw.close();
-
-    }
 
     public ArrayList<String> getOpponents() {
         ArrayList<String> opponents = new ArrayList<>();
@@ -71,7 +65,7 @@ public class Client {
             while (!opponent.equals("+")) {
                 opponent = br.readLine();
                 opponents.add(opponent);
-                System.out.println(opponent);
+
             }
 
             return opponents;
@@ -81,22 +75,6 @@ public class Client {
         return opponents;
     }
 
-
-    public String getNewMove() {
-
-        try {
-            String message = "";
-
-            pw.println("X");
-            message = br.readLine();
-
-            return message;
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    return null;
-    }
 
     public void sendMove(String move) {
         pw.println(move);

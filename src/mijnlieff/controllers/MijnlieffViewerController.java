@@ -9,6 +9,7 @@ import mijnlieff.server.Client;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.models.SidePieces;
 import mijnlieff.pieces.*;
+import mijnlieff.server.ViewerClient;
 import mijnlieff.tasks.ServerConnectionTask;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class MijnlieffViewerController extends MijnlieffController {
     public SidePieces blackSide;
     private String configuration;
     private ServerConnectionTask connectionTask;
+    private ViewerClient viewerClient;
 
     public void initialize() {
         whiteSide.setColor(Color.WHITE);
@@ -39,7 +41,7 @@ public class MijnlieffViewerController extends MijnlieffController {
         blackSide.setPieces();
         whiteSide.setModels();
         whiteSide.setPieces();
-        client = new Client();
+
     }
 
     //linkt alle karakters aan het corresponderende stuktype
@@ -53,27 +55,15 @@ public class MijnlieffViewerController extends MijnlieffController {
 
 
     public void viewerConnection(String server, int port) {
-        connectionTask = new ServerConnectionTask(server, port);
-        connectionTask.stateProperty().addListener(this::connectionStateChanged);
-        new Thread(connectionTask).start();
-
-
-    }
-
-    public void connectionStateChanged(Observable o) {
-        if (connectionTask.getState() == Worker.State.SUCCEEDED) {
-            client.setSocket(connectionTask.getValue());
-            String message = client.getNewMove();
-            while (message.contains("F")) {
-                board.addCode(message);
-                message = client.getNewMove();
-            }
+        viewerClient = new ViewerClient(server, port);
+        String message = viewerClient.getNewMove();
+        while (message.contains("F")) {
             board.addCode(message);
+            message = viewerClient.getNewMove();
         }
+        board.addCode(message);
+
     }
-
-
-
 
     //volgende zet
     public void next() {
@@ -134,7 +124,6 @@ public class MijnlieffViewerController extends MijnlieffController {
 
         while (board.getTurn() < board.getCodes().size()) {
             next();
-
         }
     }
 
