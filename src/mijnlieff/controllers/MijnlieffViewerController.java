@@ -16,9 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-//controllerklasse voor de viewerversie van mijnlieff (als het opstart zoals in deel 1)
+// Controllerklasse voor de viewerversie van mijnlieff (als het opstart zoals in deel 1)
 public class MijnlieffViewerController extends MijnlieffController {
-
 
     public Button backBut;
     public Button nextBut;
@@ -41,18 +40,17 @@ public class MijnlieffViewerController extends MijnlieffController {
         blackSide.setPieces();
         whiteSide.setModels();
         whiteSide.setPieces();
-
     }
 
-    //linkt alle karakters aan het corresponderende stuktype
+    // Linkt alle karakters aan het corresponderende stuktype
     private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
+
     static {
         typePerChar.put('o', PieceType.PULLER);
         typePerChar.put('@', PieceType.PUSHER);
         typePerChar.put('+', PieceType.TOREN);
         typePerChar.put('X', PieceType.LOPER);
     }
-
 
     public void viewerConnection(String server, int port) {
         viewerClient = new ViewerClient(server, port);
@@ -62,10 +60,9 @@ public class MijnlieffViewerController extends MijnlieffController {
             message = viewerClient.getNewMove();
         }
         board.addCode(message);
-
     }
 
-    //volgende zet
+    // Volgende zet
     public void next() {
         int turn = board.getTurn();
 
@@ -73,6 +70,7 @@ public class MijnlieffViewerController extends MijnlieffController {
         String current = codes.get(board.getTurn());
 
         Color color = Color.BLACK;
+
         if (turn % 2 == 0) {
             color = Color.WHITE;
         }
@@ -94,19 +92,21 @@ public class MijnlieffViewerController extends MijnlieffController {
 
         backBut.setDisable(false);
         startBut.setDisable(false);
-
     }
 
-    //gaat één zet terug
+    // Gaat één zet terug
     public void back() {
         int turn = board.getTurn();
 
         ArrayList<Coordinate> p = board.getFieldsInOrder();
         Coordinate lastPlaced = p.get(p.size()-1);
+
         int row = lastPlaced.getRow();
         int column = lastPlaced.getColumn();
+
         PieceType type = board.getPieces()[row][column].getType();
         board.deletePiece();
+
         if (turn % 2 != 0) {
             whiteSide.addPieceImage(type);
         } else {
@@ -117,21 +117,17 @@ public class MijnlieffViewerController extends MijnlieffController {
         startBut.setDisable(board.getTurn() <= 0);
         nextBut.setDisable(false);
         endBut.setDisable(false);
-
     }
 
     public void end() {
-
         while (board.getTurn() < board.getCodes().size()) {
             next();
         }
     }
 
     public void start() {
-
         while (board.getTurn() != 0) {
             back();
-
         }
     }
 }

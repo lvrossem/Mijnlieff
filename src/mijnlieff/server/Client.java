@@ -7,13 +7,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
-//regelt de communicatie tussen server en speler
+// Regelt de communicatie tussen server en speler
 public class Client extends MijnlieffClient {
 
-
     private Color color;
-
-
 
     public BufferedReader getBr() {
         return br;
@@ -22,7 +19,6 @@ public class Client extends MijnlieffClient {
     public void setSocket(Socket socket) {
         this.socket = socket;
         try {
-
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             pw = new PrintWriter(socket.getOutputStream(), true);
@@ -38,7 +34,6 @@ public class Client extends MijnlieffClient {
 
     public void enterQueue() {
         pw.println("P");
-
     }
 
     public String challengePlayer(String player) {
@@ -49,23 +44,17 @@ public class Client extends MijnlieffClient {
             ex.printStackTrace();
         }
         return null;
-
     }
-
-
 
     public ArrayList<String> getOpponents() {
         ArrayList<String> opponents = new ArrayList<>();
         try {
             pw.println("W");
-
-
             String opponent = "";
 
             while (!opponent.equals("+")) {
                 opponent = br.readLine();
                 opponents.add(opponent);
-
             }
 
             return opponents;
@@ -81,9 +70,7 @@ public class Client extends MijnlieffClient {
     }
 
     public void checkName(String name) {
-
         pw.println("I " + name);
-
     }
 
     public Color getColor() {
@@ -93,6 +80,4 @@ public class Client extends MijnlieffClient {
     public void setColor(Color color) {
         this.color = color;
     }
-
-
 }

@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.security.Principal;
 
-
 public abstract class MijnlieffClient {
 
     protected Socket socket;
@@ -13,8 +12,6 @@ public abstract class MijnlieffClient {
     protected BufferedReader br;
 
     public void closeConnection() {
-
         pw.close();
-
     }
 }

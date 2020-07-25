@@ -11,10 +11,10 @@ import mijnlieff.pieces.Piece;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//modelklasse die het spelbord voorstelt
+// Modelklasse die het spelbord voorstelt
 public class MijnlieffBoard extends GridPane {
 
-    //linkt elk symbool dat de server in viewermodus kan doorsturen aan het corresponderende stuktype
+    // Linkt elk symbool dat de server in viewermodus kan doorsturen aan het corresponderende stuktype
     private static HashMap<Character, PieceType> typePerChar = new HashMap<Character, PieceType>();
     static {
         typePerChar.put('o', PieceType.PULLER);
@@ -22,7 +22,6 @@ public class MijnlieffBoard extends GridPane {
         typePerChar.put('+', PieceType.TOREN);
         typePerChar.put('X', PieceType.LOPER);
     }
-
 
     private ArrayList<Coordinate> fieldsInOrder;
     private Piece[][] pieces;
@@ -40,21 +39,17 @@ public class MijnlieffBoard extends GridPane {
         codes = new ArrayList<>();
 
         turn = 0;
-
     }
 
     public HashMap<Character, PieceType> getTypePerChar() {
         return typePerChar;
     }
 
-
-
     public void setModels() {
         ObservableList<Node> children = getChildren();
-
         int i = 0;
-        for (Node node: children) {
 
+        for (Node node: children) {
             ((Field) node).setModel(this);
             ((Field) node).setRow(i/4);
             ((Field) node).setColumn(i%4);
@@ -62,8 +57,6 @@ public class MijnlieffBoard extends GridPane {
         }
         fireInvalidationEvent();
     }
-
-
 
     public void setController(MijnlieffGameController controller) {
         this.controller = controller;
@@ -92,7 +85,6 @@ public class MijnlieffBoard extends GridPane {
     }
 
     public void addSelected(int row, int column) {
-
         if (controller.getSelected() != null) {
             if (pieces[row][column] == null){
                 Piece p = controller.getSelected();
@@ -152,9 +144,6 @@ public class MijnlieffBoard extends GridPane {
         listeners.add(listener);
     }
 
-
-
-
     public void addPiece(String code) {
         Color color = Color.BLACK;
         if (turn % 2 == 0) {
@@ -164,9 +153,9 @@ public class MijnlieffBoard extends GridPane {
         int row = Character.getNumericValue(code.charAt(4));
         int column = Character.getNumericValue(code.charAt(6));
 
-
         Piece piece = new Piece(color, typePerChar.get(code.charAt(8)));
         pieces[row][column] = piece;
+
         if (controller instanceof MijnlieffGameController) {
             lastPlaced = new MoveData(row, column, pieces[row][column].getType());
         }
@@ -211,10 +200,11 @@ public class MijnlieffBoard extends GridPane {
     public int[] getScore() {
         int[] points = new int[2];
 
-        //telt de punten adhv de rijen
+        // Telt de punten adhv de rijen
         for (int i = 0; i<11; i++) {
             int white = 0;
             int black = 0;
+
             for (int j = 0; j<11; j++) {
                 Piece piece = pieces[i][j];
                 if (piece != null) {
@@ -258,10 +248,5 @@ public class MijnlieffBoard extends GridPane {
 
         }
         return points;
-
-
     }
-
-
-
 }

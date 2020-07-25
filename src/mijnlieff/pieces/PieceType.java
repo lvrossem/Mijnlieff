@@ -1,6 +1,6 @@
 package mijnlieff.pieces;
 
-//stelt de vier mogelijke types van de pionnen voor
+// Stelt de vier mogelijke types van de pionnen voor
 public enum PieceType {
     LOPER("-loper.png"), PUSHER("-pusher.png"), TOREN("-toren.png"), PULLER("-puller.png");
 

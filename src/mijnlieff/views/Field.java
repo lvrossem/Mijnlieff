@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import mijnlieff.models.MijnlieffBoard;
 import mijnlieff.pieces.Piece;
 
-//een view die een vakje op het spelbord voorstelt
+// Een view die een vakje op het spelbord voorstelt
 public class Field extends ImageView {
 
     private MijnlieffBoard model;
@@ -19,7 +19,6 @@ public class Field extends ImageView {
         if (model.getController() != null) {
             setOnMouseClicked(e -> model.addSelected(row, column));
         }
-
     }
 
     public void register() {
@@ -28,12 +27,10 @@ public class Field extends ImageView {
 
     public void setRow(int row) {
         this.row = row;
-
     }
 
     public void setColumn(int column) {
         this.column = column;
-
     }
 
     public int getRow() {
@@ -44,12 +41,10 @@ public class Field extends ImageView {
         return column;
     }
 
-
-
     public void setAppearance() {
         Piece piece = model.getPieces()[row][column];
 
-        //stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
+        // Stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
         if (piece != null) {
             setImage(new Image("/mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));
         } else {

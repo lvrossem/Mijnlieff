@@ -8,14 +8,14 @@ import mijnlieff.pieces.Color;
 
 import java.util.HashMap;
 
-//controller van het scherm waarmee je een bordconfiguratie kan kiezen
+// Controller van het scherm waarmee je een bordconfiguratie kan kiezen
 public class BordKeuzeController extends MijnlieffController {
 
     public ListView<String> choices;
     public Button confirm;
     public Label errorLabel;
 
-    //linkt alle opties van het bord aan hun stringvoorstelling
+    // Linkt alle opties van het bord aan hun stringvoorstelling
     private static HashMap<Integer, String> bordPerIndex = new HashMap<>();
     static {
         bordPerIndex.put(0, "X 0 0 2 2 4 4 6 6");
@@ -64,21 +64,17 @@ public class BordKeuzeController extends MijnlieffController {
 
     }
 
-    //maakt het spel aan als er een keuze gemaakt is
+    // Maakt het spel aan als er een keuze gemaakt is
     public void pickShape() {
         client.setColor(Color.BLACK);
         if (choices.getSelectionModel().getSelectedItem() == null) {
             errorLabel.setVisible(true);
         } else {
-
             errorLabel.setVisible(false);
             String configuration = bordPerIndex.get(choices.getSelectionModel().getSelectedIndex());
             Stage stage = (Stage) errorLabel.getScene().getWindow();
-
             MijnlieffGameController mijnlieffGameController = new MijnlieffGameController(configuration, stage, client);
-
             client.sendBoard(configuration);
-
         }
     }
 }

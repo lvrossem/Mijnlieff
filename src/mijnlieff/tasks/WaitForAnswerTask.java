@@ -2,10 +2,9 @@ package mijnlieff.tasks;
 
 import javafx.concurrent.Task;
 import mijnlieff.server.Client;
-
 import java.io.IOException;
 
-//een task die wacht op een antwoord van de server als er een bericht naar verstuurd is
+// Een task die wacht op een antwoord van de server als er een bericht naar verstuurd is
 public class WaitForAnswerTask extends Task<String> {
 
     private Client client;
@@ -18,7 +17,6 @@ public class WaitForAnswerTask extends Task<String> {
     public String call() throws Exception {
         try {
             String answer = client.getBr().readLine();
-
             return answer;
         } catch (IOException ex) {
             throw new RuntimeException("Onverwachte onderbreking", ex);

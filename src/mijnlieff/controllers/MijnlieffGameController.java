@@ -20,7 +20,7 @@ import mijnlieff.views.Field;
 
 import java.util.HashMap;
 
-//controllerklasse voor een spelsessie met 2 spelers (dus niet voor de viewer)
+// Controllerklasse voor een spelsessie met 2 spelers (dus niet voor de viewer)
 public class MijnlieffGameController extends MijnlieffController {
 
     public BorderPane borderPane;
@@ -31,7 +31,6 @@ public class MijnlieffGameController extends MijnlieffController {
     public Button pointButton;
     private Piece selected;
 
-
     private static HashMap<PieceType, Character> charPerType = new HashMap<>();
     static {
         charPerType.put(PieceType.PULLER, 'o');
@@ -40,12 +39,10 @@ public class MijnlieffGameController extends MijnlieffController {
         charPerType.put(PieceType.LOPER, 'X');
     }
 
-
-    //stelt het bord op adhv de stringvorm van de bordconfiguratie
+    // Stelt het bord op adhv de stringvorm van de bordconfiguratie
     public MijnlieffGameController(String configuration, Stage stage, Client client) {
         board = new MijnlieffBoard();
         this.client = client;
-
 
         borderPane = new BorderPane();
 
@@ -66,7 +63,7 @@ public class MijnlieffGameController extends MijnlieffController {
 
         String indices = configuration.substring(2);
 
-        //maakt de speelvelden per blokjes van 4 aan
+        // Maakt de speelvelden per blokjes van 4 aan
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 11; j++) {
                 Field field = new Field();
@@ -75,9 +72,11 @@ public class MijnlieffGameController extends MijnlieffController {
                 board.add(field, i, j);
             }
         }
+
         for (int i = 0; i < 4; i++) {
-            int row = Character.getNumericValue(indices.charAt(4*i));
-            int column = Character.getNumericValue(indices.charAt(4*i+2));
+            int row = Character.getNumericValue(indices.charAt(4 * i));
+            int column = Character.getNumericValue(indices.charAt(4 * i + 2));
+
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
                     Field field = new Field();
@@ -91,7 +90,6 @@ public class MijnlieffGameController extends MijnlieffController {
             }
         }
 
-
         board.fireInvalidationEvent();
         board.setAlignment(Pos.CENTER);
         waitingError.setAlignment(Pos.CENTER);
@@ -101,36 +99,25 @@ public class MijnlieffGameController extends MijnlieffController {
         borderPane.setRight(blackSide);
         borderPane.setTop(waitingError);
 
-
         Scene game = new Scene(borderPane, 900, 700);
         stage.setScene(game);
         stage.show();
-
 
         if (client.getColor() == Color.BLACK) {
             handleNextMove();
         } else {
             waitingError.setText("Het is jouw beurt");
         }
-
-
-
     }
-
 
     public void setSelected(Piece piece) {
-
         selected = piece;
-
     }
-
 
     public void setSelectedNull() {
         PieceType type = selected.getType();
         if (board.getTurn() % 2 == 0) {
-
             whiteSide.deletePieceImage(type);
-
         } else {
             blackSide.deletePieceImage(type);
         }
@@ -163,7 +150,4 @@ public class MijnlieffGameController extends MijnlieffController {
             waitingError.setText("Er ging iets fout...");
         }
     }
-
-
-
 }

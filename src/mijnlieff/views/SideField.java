@@ -11,9 +11,6 @@ public class SideField extends ImageView {
     private SidePieces model;
     private int index;
 
-
-
-
     public void setModel(SidePieces model) {
         this.model = model;
         register();
@@ -30,21 +27,17 @@ public class SideField extends ImageView {
         this.index = index;
     }
 
-
-
     public void invalidationEvent() {
         setAppearance();
     }
 
     public void setAppearance() {
         Piece piece = model.getPieces()[index];
-        //stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
+        // Stelt de padnaam van de juiste afbeelding samen adhv het kleur en het type
         if (piece != null) {
             setImage(new Image("mijnlieff/img/" + piece.getColor().getColorString() + piece.getType().getUrl()));
         } else {
             setImage(null);
         }
     }
-
-
 }

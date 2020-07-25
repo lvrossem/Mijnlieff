@@ -8,36 +8,23 @@ import java.net.Socket;
 
 public class ViewerClient extends MijnlieffClient {
 
-
-
     public ViewerClient(String server, int poort) {
-
-
-
-
         try {
             socket = new Socket(server, poort);
 
             br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             pw = new PrintWriter(socket.getOutputStream(), true);
-
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     public void closeConnection() {
-
         pw.close();
-
     }
 
     public String getNewMove() {
-
-
-
         try {
             String message = "";
 
@@ -45,7 +32,6 @@ public class ViewerClient extends MijnlieffClient {
             message = br.readLine();
 
             return message;
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }

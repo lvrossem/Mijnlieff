@@ -11,10 +11,10 @@ import mijnlieff.pieces.PieceType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//modelklasse die de kolommen aan de zijkant van het spelbord voorstelt
+// Modelklasse die de kolommen aan de zijkant van het spelbord voorstelt
 public class SidePieces extends VBox {
 
-    //linkt elk stuktype met de plaats waar het staat in de kolom
+    // Linkt elk stuktype met de plaats waar het staat in de kolom
     private static HashMap<PieceType, Integer> indexPerType = new HashMap<PieceType, Integer>();
     static {
         indexPerType.put(PieceType.TOREN, 0);
@@ -30,7 +30,6 @@ public class SidePieces extends VBox {
     private MijnlieffGameController controller;
 
     public SidePieces() {
-
         listeners = new ArrayList<>();
         pieces = new Piece[8];
         for (int i = 0; i < 8; i++) {
@@ -40,12 +39,10 @@ public class SidePieces extends VBox {
             sideField.setModel(this);
             sideField.setIndex(i);
             getChildren().add(sideField);
-
         }
-
     }
 
-    //vult zichzelf op
+    // Vult zichzelf op
     public void setPieces() {
         pieces[0] = new Piece(color, PieceType.TOREN);
         pieces[1] = new Piece(color, PieceType.TOREN);
@@ -65,7 +62,6 @@ public class SidePieces extends VBox {
     public void setSelected(Piece piece) {
         controller.setSelected(piece);
         System.out.println(piece.getType().getUrl());
-
     }
 
     public void setController(MijnlieffGameController controller) {
@@ -103,7 +99,7 @@ public class SidePieces extends VBox {
         }
     }
 
-    //verwijdert een image als er een stuk geplaatst wordt
+    // Verwijdert een image als er een stuk geplaatst wordt
     public void deletePieceImage(PieceType type) {
 
         if (pieces[indexPerType.get(type)] != null) {
@@ -117,8 +113,7 @@ public class SidePieces extends VBox {
         fireInvalidationEvent();
     }
 
-
-    //voegt een nieuwe image toe als er een stap terug wordt gegaan in het spel
+    // Voegt een nieuwe image toe als er een stap terug wordt gegaan in het spel
     public void addPieceImage(PieceType type) {
 
         if (pieces[indexPerType.get(type)] == null) {

@@ -2,7 +2,7 @@ package mijnlieff.models;
 
 import mijnlieff.pieces.PieceType;
 
-//Data-transfer object
+// Data-transfer object
 public class MoveData {
     private int row;
     private int column;

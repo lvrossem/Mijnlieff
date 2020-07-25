@@ -2,11 +2,10 @@ package mijnlieff.tasks;
 
 import javafx.concurrent.Task;
 import mijnlieff.server.Client;
-
 import java.io.IOException;
 import java.net.Socket;
 
-//een task die verbinding legt met de server
+// Een task die verbinding legt met de server
 public class ServerConnectionTask extends Task<Socket> {
 
     private String adres;
@@ -23,12 +22,10 @@ public class ServerConnectionTask extends Task<Socket> {
 
         Socket socket;
         try {
-
             socket = new Socket(adres, poort);
             return socket;
         } catch (IOException ex) {
             throw new RuntimeException("Onverwachte onderbreking", ex);
         }
-
     }
 }

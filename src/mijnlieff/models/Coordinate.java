@@ -1,6 +1,6 @@
 package mijnlieff.models;
 
-//eenvoudige klasse om een coördinaat als een tuple van 2 ints voor te stellen
+// Eenvoudige klasse om een coördinaat als een tuple van 2 ints voor te stellen
 public class Coordinate {
     private int row;
     private int column;

@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import mijnlieff.server.Client;
 import mijnlieff.tasks.ServerConnectionTask;
 
-//controller voor het beginscherm waar het serveradres gekozen wordt
+// Controller voor het beginscherm waar het serveradres gekozen wordt
 public class ServerSelectController extends MijnlieffController {
 
     public TextField portField;
@@ -27,9 +27,7 @@ public class ServerSelectController extends MijnlieffController {
         String server = serverField.getText();
         String port = portField.getText();
 
-
         if (!server.equals("") && !port.equals("")) {
-
             boolean isNumber = true;
             try {
                 int portNumber = Integer.parseInt(port);
@@ -51,14 +49,14 @@ public class ServerSelectController extends MijnlieffController {
         }
     }
 
-    //wordt uitgevoerd als de verbinding met de server gemaakt is of als ze niet werkt
+    // Wordt uitgevoerd als de verbinding met de server gemaakt is of als ze niet werkt
     public void connectionChange(Observable o) {
         if (conTask.getState() == Worker.State.SUCCEEDED) {
             client.setSocket(conTask.getValue());
             errorLabel.setText(null);
             Scene next = changeScene("NameSelect.fxml", 201, 439);
 
-            //verkrijgt de huidige window waarin de scene vervangen moet worden
+            // Verkrijgt de huidige window waarin de scene vervangen moet worden
             Stage primaryStage = (Stage) errorLabel.getScene().getWindow();
 
             primaryStage.setScene(next);
@@ -66,6 +64,4 @@ public class ServerSelectController extends MijnlieffController {
             errorLabel.setText("Ongeldige server");
         }
     }
-
-
 }
